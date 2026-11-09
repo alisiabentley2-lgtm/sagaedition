@@ -23,15 +23,14 @@ def build_app_html() -> str:
         const catalogs = {catalog_json};
         const nativeFetch = window.fetch.bind(window);
         window.fetch = async (input, init) => {{
-          const url = typeof input === 'string' ? input : input.url;
-          const filename = new URL(url, window.location.href).pathname.split('/').pop();
+          const url = typeof input === 'string' ? input : input instanceof URL ? input.href : input.url;
+          const filename = String(url).split(/[?#]/, 1)[0].split('/').pop();
           if (Object.prototype.hasOwnProperty.call(catalogs, filename)) {{
             const data = catalogs[filename];
-            return {{
-              ok: true,
+            return new Response(JSON.stringify(data), {{
               status: 200,
-              json: async () => JSON.parse(JSON.stringify(data))
-            }};
+              headers: {{ "Content-Type": "application/json" }}
+            }});
           }}
           return nativeFetch(input, init);
         }};
