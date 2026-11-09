@@ -44,6 +44,7 @@
   <dialog id="builderDialog"><div class="builder-head"><div><div class="eyebrow">CHARACTER BUILDER</div><h2 id="builderTitle">Build your character</h2></div><button class="button" type="button" data-close-builder aria-label="Close character builder">×</button></div><form id="builderForm"></form></dialog>
   <dialog id="homebrewDialog"><form id="homebrewForm"><h2>Add homebrew</h2><p>Add a custom rules item to this browser's shared homebrew library.</p><div class="modal-fields"><div class="field"><label for="brewType">Category</label><select id="brewType"><option>Class</option><option>Feat</option><option>Talent</option><option>Ability</option><option>Equipment</option><option>Armor</option><option>Weapon</option></select></div><div class="field"><label for="brewName">Name</label><input id="brewName" required maxlength="80"></div><div class="field"><label for="brewDescription">Description</label><textarea id="brewDescription" maxlength="1000"></textarea></div></div><div class="dialog-actions"><button class="button" type="button" data-close="homebrewDialog">Cancel</button><button class="button primary" type="submit">Add to library</button></div></form></dialog>
   <dialog id="featChoiceDialog"><form id="featChoiceForm" class="modal-fields"></form></dialog>
+  <dialog id="deleteCharacterDialog"><h2>Delete character?</h2><p id="deleteCharacterMessage"></p><div class="dialog-actions"><button class="button" type="button" id="cancelDeleteCharacter">Cancel</button><button class="button primary" type="button" id="confirmDeleteCharacter">Delete character</button></div></dialog>
   <dialog id="catalogDialog"><div class="catalog-head"><div><div class="eyebrow" id="catalogTypeLabel">CHARACTER OPTIONS</div><h2 id="catalogTitle">Add feat</h2><p class="muted" id="catalogDescription"></p></div><button class="button" type="button" data-close-catalog aria-label="Close catalog">×</button></div><div id="catalogContent"></div></dialog>
   <dialog id="equipmentDialog"><div class="catalog-head"><div><div class="eyebrow" id="equipmentTypeLabel">EQUIPMENT</div><h2 id="equipmentTitle">Add equipment</h2><p class="muted" id="equipmentDescription"></p></div><button class="button" type="button" data-close-equipment aria-label="Close equipment catalog">×</button></div><div id="equipmentContent"></div></dialog>
   <dialog id="levelUpDialog"><div class="catalog-head"><div><div class="eyebrow">LEVEL ADVANCEMENT</div><h2 id="levelUpTitle">Level up</h2><p class="muted" id="levelUpDescription"></p></div><button class="button" type="button" data-close-levelup aria-label="Close level-up menu">×</button></div><form id="levelUpForm"></form></dialog>
@@ -51,7 +52,7 @@
   <input id="importFile" type="file" accept=".json,application/json" hidden>
   <script>
     const STORAGE_KEY='saga-ledger-v1';
-    const tabs=[['overview','Overview'],['details','Details'],['stats','Stats'],['feats','Feats & talents'],['inventory','Inventory'],['attacks','Attacks'],['ships','Ships'],['companions','Companions'],['homebrew','Homebrew']];
+    const tabs=[['overview','Overview'],['details','Details'],['stats','Stats'],['inventory','Inventory'],['attacks','Attacks'],['ships','Ships'],['companions','Companions'],['homebrew','Homebrew']];
     const abilities=['STR','DEX','CON','INT','WIS','CHA'];
     const droidDegreeModifiers={'1st':{INT:2,WIS:2,STR:-2},'2nd':{INT:2,CHA:-2},'3rd':{WIS:2,CHA:2,STR:-2},'4th':{DEX:2,INT:-2,CHA:-2},'5th':{STR:4,INT:-4,CHA:-4}};
     function isDroid(c){return c?.species==='Droid'||!!c?.droid}
@@ -95,7 +96,17 @@
     const starter={name:'Blanc shet',species:'Human',class:'Scoundrel',level:3,abilities:{STR:10,DEX:10,CON:10,INT:10,WIS:10,CHA:10},hp:21,maxHp:21,xp:3000,credits:850,age:'27',height:'1.68 m',background:'A courier who knows the forgotten lanes between settled systems.',languages:'Basic, Huttese',alignment:'Independent',notes:'Keeps a second navicomputer for the routes she does not discuss.',skills:[{name:'Pilot',bonus:8,trained:true},{name:'Stealth',bonus:8,trained:true},{name:'Deception',bonus:7,trained:true},{name:'Perception',bonus:3,trained:false}],feats:[{name:'Point Blank Shot',kind:'Feat'},{name:'Vehicular Combat',kind:'Feat'}],talents:[{name:'Lucky',kind:'Talent'}],inventory:[{name:'Blaster pistol',qty:1,weight:1},{name:'Comlink',qty:1,weight:0.1},{name:'Utility belt',qty:1,weight:2}],weapons:[{name:'Blaster pistol',damage:'3d6',attackBonus:6,crit:20,type:'Energy'}],ships:[{name:'Wayward Star',type:'YT-1300 light freighter',role:'Transport',notes:'Modified hyperdrive'}],companions:[{name:'Pip',species:'BD-series droid',role:'Astromech',notes:'Reliable, opinionated'}]};
     let state=loadState(),activeTab='overview',lastRoll='',lastSkillRoll=null,pendingFeat=null,pendingLevelUp=null,lastLevelUpSummary=null,activeCatalogType='feat',activeCatalogEntries=[],equipmentCatalog=[],activeEquipmentType='Weapon',activeEquipmentEntries=[],bundledFeats=[],bundledTalents=[],bundledTalentTrees=[],bundledFeatsComplete=false,bundledTalentsComplete=false,pointBuyMode=false;
     const $=s=>document.querySelector(s),esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-    function loadState(){const raw=localStorage.getItem(STORAGE_KEY);if(raw===null)return {profile:'',characters:[normalizeCharacter(starter)],homebrew:[],selected:0};let saved;try{saved=JSON.parse(raw)}catch(error){console.error('Could not read the saved character archive; existing browser data was left untouched.',error);return {profile:'',characters:[normalizeCharacter(starter)],homebrew:[],selected:0}}if(!saved||!Array.isArray(saved.characters)){console.error('Saved character archive has an invalid format; existing browser data was left untouched.');return {profile:'',characters:[normalizeCharacter(starter)],homebrew:[],selected:0}}const characters=saved.characters.filter(character=>character&&typeof character==='object'&&typeof character.name==='string'&&character.name.trim());if(characters.length!==saved.characters.length)console.error('Some invalid character records were skipped while loading the saved archive.');const normalized=characters.map(normalizeCharacter);return {...saved,characters:normalized.length?normalized:[normalizeCharacter(starter)],homebrew:Array.isArray(saved.homebrew)?saved.homebrew:[],selected:Math.max(0,Math.min(Number.isInteger(Number(saved.selected))?Number(saved.selected):0,Math.max(0,normalized.length-1)))}}
+    function loadState(){
+      const raw=localStorage.getItem(STORAGE_KEY);
+      if(raw===null)return {profile:'',characters:[normalizeCharacter(starter)],homebrew:[],selected:0};
+      let saved;
+      try{saved=JSON.parse(raw)}catch(error){console.error('Could not read the saved character archive; existing browser data was left untouched.',error);return {profile:'',characters:[normalizeCharacter(starter)],homebrew:[],selected:0}}
+      if(!saved||!Array.isArray(saved.characters)){console.error('Saved character archive has an invalid format; existing browser data was left untouched.');return {profile:'',characters:[normalizeCharacter(starter)],homebrew:[],selected:0}}
+      const characters=saved.characters.filter(character=>character&&typeof character==='object'&&typeof character.name==='string'&&character.name.trim());
+      if(characters.length!==saved.characters.length)console.error('Some invalid character records were skipped while loading the saved archive.');
+      const normalized=characters.map(normalizeCharacter);
+      return {...saved,characters:normalized,homebrew:Array.isArray(saved.homebrew)?saved.homebrew:[],selected:Math.max(0,Math.min(Number.isInteger(Number(saved.selected))?Number(saved.selected):0,Math.max(0,normalized.length-1)))}
+    }
     function persist(){localStorage.setItem(STORAGE_KEY,JSON.stringify(state))}
     function current(){return state.characters[state.selected]||state.characters[0]}
     function modifier(score){return Math.floor((Number(score)-10)/2)}
@@ -111,11 +122,37 @@
     function toast(msg){const n=document.createElement('div');n.className='toast';n.textContent=msg;document.body.append(n);setTimeout(()=>n.remove(),2400)}
     function download(name,data){const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;a.click();URL.revokeObjectURL(url)}
     function save(){persist();render();toast('Saved to this browser')}
-    function render(){renderRoster();if(!state.profile){$('#profileDialog').showModal();$('#profileInput').value='';return}const c=current();$('#profileName').textContent=state.profile;$('#crumbName').textContent=c.name.toUpperCase();$('#characterNameHeading').textContent=c.name;$('#characterType').textContent=`${c.species.toUpperCase()} · ${c.class.toUpperCase()}`;$('#characterSubline').textContent=`${c.background||'Independent operator'} · ${c.homeworld||'Outer Rim Territories'}`;$('#levelDisplay').textContent=`LVL ${c.level}`;renderQuick();renderTabs();renderView()}
+    function render(){
+      renderRoster();
+      if(!state.profile){$('#profileDialog').showModal();$('#profileInput').value='';return}
+      $('#profileName').textContent=state.profile;
+      const hasCharacter=state.characters.length>0;
+      $('#saveCharacter').disabled=!hasCharacter;
+      $('#exportCharacter').disabled=!hasCharacter;
+      $('#levelUpButton').disabled=!hasCharacter;
+      if(!hasCharacter){
+        $('#crumbName').textContent='EMPTY ARCHIVE';
+        $('#characterNameHeading').textContent='No characters yet';
+        $('#characterType').textContent='LOCAL ARCHIVE';
+        $('#characterSubline').textContent='Create a character to begin your archive.';
+        $('#levelDisplay').textContent='—';
+        $('#quickStats').innerHTML='';
+        $('#tabs').innerHTML='';
+        $('#view').innerHTML='<div class="panel empty"><h2>Your archive is empty</h2><p>Use “New character” to create a character.</p></div>';
+        return;
+      }
+      const c=current();
+      $('#crumbName').textContent=c.name.toUpperCase();
+      $('#characterNameHeading').textContent=c.name;
+      $('#characterType').textContent=`${c.species.toUpperCase()} · ${c.class.toUpperCase()}`;
+      $('#characterSubline').textContent=`${c.background||'Independent operator'} · ${c.homeworld||'Outer Rim Territories'}`;
+      $('#levelDisplay').textContent=`LVL ${c.level}`;
+      renderQuick();renderTabs();renderView();
+    }
     function renderRoster(){const host=$('#characterList');host.innerHTML=state.characters.map((c,i)=>`<div class="roster-entry"><button class="char-choice ${i===state.selected?'active':''}" data-character="${i}" title="${esc(c.name)}"><span class="avatar">${esc(c.name.slice(0,1).toUpperCase())}</span><span class="char-label"><span class="char-small">${esc(c.name)}</span><br><span class="char-meta">${esc(c.species)} · Lv ${c.level}</span></span></button><button class="roster-delete" data-delete-character="${i}" title="Delete ${esc(c.name)}" aria-label="Delete ${esc(c.name)}">×</button></div>`).join('')}
     function renderQuick(){const c=current(),vals=[['Hit points',`${c.hp}/${c.maxHp||maxHp(c)}`,'CURRENT / MAX'],['Fortitude',defense('Fortitude'),`CLASS ${modText((classes[c.class]||classes.Soldier).fort)}`],['Reflex',defense('Reflex'),`CLASS ${modText((classes[c.class]||classes.Soldier).ref)}`],['Will',defense('Will'),`CLASS ${modText((classes[c.class]||classes.Soldier).will)}`],['Credits',Number(c.credits||0).toLocaleString(),'AVAILABLE']];$('#quickStats').innerHTML=vals.map(x=>`<div class="quick-stat"><label>${x[0]}</label><strong>${esc(x[1])}</strong><small>${x[2]}</small></div>`).join('')}
     function renderTabs(){$('#tabs').innerHTML=tabs.map(([id,label])=>`<button class="tab ${activeTab===id?'active':''}" data-tab="${id}">${label}</button>`).join('')}
-    function renderView(){const c=current(),container=$('#view');const views={overview:overviewView,details:detailsView,stats:statsView,feats:featsView,inventory:inventoryView,attacks:attacksView,ships:()=>collectionView('ships','Ship','Create ship'),companions:()=>collectionView('companions','Companion','Create companion'),homebrew:homebrewView};container.innerHTML=views[activeTab]();wireView()}
+    function renderView(){const c=current(),container=$('#view');const views={overview:overviewView,details:detailsView,stats:statsView,inventory:inventoryView,attacks:attacksView,ships:()=>collectionView('ships','Ship','Create ship'),companions:()=>collectionView('companions','Companion','Create companion'),homebrew:homebrewView};container.innerHTML=views[activeTab]();wireView()}
     function overviewView(){const c=current();return `<div class="overview-grid"><div><div class="panel"><div class="section-head" style="margin-top:0"><div><h2>Ability scores</h2><p>Score and modifier</p></div><button class="button ghost" data-go="stats">Edit stats</button></div><div class="ability-grid">${characterAbilities(c).map(a=>`<div class="ability"><label>${a}</label><strong>${Number(c.abilities[a]||10)}</strong><small>${modText(modifier(c.abilities[a]||10))}</small></div>`).join('')}</div>${isDroid(c)?`<div class="callout">Droid · ${esc(c.droid?.degree||'2nd')}-Degree · ${esc(c.droid?.size||'Medium')} · no Constitution score</div>`:''}</div><div class="panel" style="margin-top:14px"><div class="section-head" style="margin-top:0"><div><h2>Skills</h2><p>${c.skills.length} skills · d20 + calculated modifier</p></div><button class="button ghost" data-go="stats">Edit skills</button></div><div class="skill-legend"><span><i class="legend-mark"></i>Trained</span><span><i class="legend-mark focus"></i>Skill Focus</span></div><div class="list">${c.skills.map((s,i)=>{const b=skillBreakdown(c,s),trained=skillTrained(c,s),focused=skillFocused(c,s),cls=trained&&focused?'skill-trained skill-focused':trained?'skill-trained':focused?'skill-focused':'';return `<div class="list-row ${cls}" title="${esc(`${b.level} half-level + ${b.abilityMod} ${b.ability} + ${b.trained} trained + ${b.focus} focus + ${b.misc} misc`)}"><div><div class="row-title">${esc(s.name)}</div><div class="row-sub">${esc(b.ability)}${trained?' · Trained':''}${focused?' · Skill Focus':''}${b.sizeBonus?` · +${b.sizeBonus} Small size`:''}</div>${lastSkillRoll&&lastSkillRoll.name===s.name?`<span class="skill-roll-result">${esc(lastSkillRoll.text)}</span>`:''}</div><div class="actions"><span class="tag">${modText(b.total)}</span><button class="button" data-roll-skill="${i}" aria-label="Roll ${esc(s.name)}">Roll</button></div></div>`}).join('')||'<div class="empty">No skills added.</div>'}</div></div></div><div><div class="panel"><div class="section-head" style="margin-top:0"><div><h2>Defenses</h2><p>Base 10 + heroic level + class + ability</p></div></div><div class="defense-list">${['Fortitude','Reflex','Will'].map(n=>`<div class="defense"><label>${n}</label><strong>${defense(n)}</strong><small>${n==='Fortitude'&&isDroid(c)?'Strength':n==='Fortitude'?'Constitution':n==='Reflex'?'Dexterity':'Wisdom'} based${n==='Reflex'&&isDroid(c)&&c.droid?.size==='Small'?' · +1 size':''}</small></div>`).join('')}</div><div class="callout">Saga Edition defense and hit point calculations are estimates from the entered class progression. Verify special bonuses and multiclass rules against your table.</div></div><div class="panel" style="margin-top:14px"><div class="section-head" style="margin-top:0"><div><h2>At a glance</h2><p>Current loadout</p></div></div><div class="list"><div class="list-row"><div><div class="row-title">${esc(c.weapons[0]?.name||'No weapon equipped')}</div><div class="row-sub">Primary weapon</div></div><span class="tag amber">${esc(c.weapons[0]?.damage||'—')}</span></div><div class="list-row"><div><div class="row-title">${c.feats.length+c.talents.length} features</div><div class="row-sub">Feats & talents</div></div><button class="button ghost" data-go="feats">Open</button></div><div class="list-row"><div><div class="row-title">${c.ships.length} ship · ${c.companions.length} companion</div><div class="row-sub">Crew and contacts</div></div><button class="button ghost" data-go="ships">Open</button></div></div></div></div></div>`}
     function detailsView(){const c=current();return `<div class="panel"><div class="section-head" style="margin-top:0"><div><h2>Character details</h2><p>Identity, history, and personal notes</p></div></div><div class="form-grid"><div class="field"><label>Name</label><input data-field="name" value="${esc(c.name)}"></div><div class="field"><label>Species</label><input data-field="species" value="${esc(c.species)}"></div><div class="field"><label>Class</label><select data-field="class">${Object.keys(classes).map(v=>`<option ${c.class===v?'selected':''}>${v}</option>`).join('')}</select></div><div class="field"><label>Heroic level</label><input data-field="level" type="number" min="1" max="20" value="${c.level}"></div><div class="field"><label>Age</label><input data-field="age" value="${esc(c.age||'')}"></div><div class="field"><label>Height</label><input data-field="height" value="${esc(c.height||'')}"></div><div class="field"><label>Homeworld</label><input data-field="homeworld" value="${esc(c.homeworld||'')}"></div><div class="field"><label>Languages</label><input data-field="languages" value="${esc(c.languages||'')}"></div><div class="field full"><label>Background</label><textarea data-field="background">${esc(c.background||'')}</textarea></div><div class="field full"><label>Notes</label><textarea data-field="notes">${esc(c.notes||'')}</textarea></div></div><div class="actions" style="margin-top:15px"><button class="button primary" data-save-fields>Save details</button></div></div>`}
     function pointCost(score){return ({8:0,9:1,10:2,11:3,12:4,13:5,14:6,15:8})[Number(score)]??Infinity}
@@ -265,7 +302,32 @@
     const collectionViewBeforeStarshipManeuvers=collectionView;collectionView=function(key,label,buttonText){const content=collectionViewBeforeStarshipManeuvers(key,label,buttonText);return key==='ships'?`${content}${renderStarshipManeuvers(current())}`:content}
     const wireViewBeforeStarshipManeuvers=wireView;wireView=function(){wireViewBeforeStarshipManeuvers();const c=current(),add=$('[data-add-starship-maneuver]');if(add)add.onclick=()=>{if(!hasStarshipTactics(c))return toast('Starship Tactics is required');const name=$('#starshipManeuverChoice').value,entry=starshipManeuverCatalog.find(item=>item.name===name);if(!entry)return toast('Choose an available starship maneuver');if(!Array.isArray(c.starshipManeuvers))c.starshipManeuvers=[];if(c.starshipManeuvers.some(item=>String(item.name||item).toLowerCase()===name.toLowerCase()))return toast('That maneuver is already selected');c.starshipManeuvers.push({...entry});persist();renderView()};document.querySelectorAll('[data-remove-starship-maneuver]').forEach(button=>button.onclick=()=>{if(!Array.isArray(c.starshipManeuvers))return;c.starshipManeuvers.splice(Number(button.dataset.removeStarshipManeuver),1);persist();renderView()})}
     const normalizeCharacterBeforeStarshipManeuvers=normalizeCharacter;normalizeCharacter=function(c){const result=normalizeCharacterBeforeStarshipManeuvers(c);result.starshipManeuvers=Array.isArray(c.starshipManeuvers)?c.starshipManeuvers:[];return result};state.characters=state.characters.map(normalizeCharacter)
-    document.addEventListener('click',event=>{const button=event.target.closest('[data-delete-character]');if(!button)return;event.preventDefault();event.stopImmediatePropagation();const index=Number(button.dataset.deleteCharacter),character=state.characters[index];if(!character)return;if(state.characters.length===1)return toast('Keep at least one character in the archive');if(!confirm(`Delete ${character.name}? This cannot be undone.`))return;state.characters.splice(index,1);if(state.selected===index)state.selected=Math.min(index,state.characters.length-1);else if(state.selected>index)state.selected--;persist();render();toast(`${character.name} deleted`)},true)
+    let pendingDeleteIndex=null;
+    document.addEventListener('click',event=>{
+      const button=event.target.closest('[data-delete-character]');
+      if(!button)return;
+      event.preventDefault();event.stopImmediatePropagation();
+      const index=Number(button.dataset.deleteCharacter),character=state.characters[index];
+      if(!Number.isInteger(index)||!character)return;
+      pendingDeleteIndex=index;
+      $('#deleteCharacterMessage').textContent=`Delete ${character.name}? This cannot be undone.`;
+      $('#deleteCharacterDialog').showModal();
+    },true);
+    $('#cancelDeleteCharacter').addEventListener('click',()=>{
+      pendingDeleteIndex=null;
+      $('#deleteCharacterDialog').close();
+    });
+    $('#confirmDeleteCharacter').addEventListener('click',()=>{
+      const index=pendingDeleteIndex,character=state.characters[index];
+      pendingDeleteIndex=null;
+      $('#deleteCharacterDialog').close();
+      if(!character)return;
+      state.characters.splice(index,1);
+      if(!state.characters.length)state.selected=0;
+      else if(state.selected===index)state.selected=Math.min(index,state.characters.length-1);
+      else if(state.selected>index)state.selected--;
+      persist();render();toast(`${character.name} deleted`);
+    });
     window.addEventListener('pagehide',()=>persist())
     render();
     loadCatalogFiles();
