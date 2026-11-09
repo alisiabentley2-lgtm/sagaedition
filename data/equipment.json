@@ -1,0 +1,1665 @@
+{
+  "format": "saga-ledger-equipment-catalog",
+  "version": 1,
+  "source": "Equipment summaries and listed values transcribed from user-provided excerpts. Catalog is a starter selection, not complete.",
+  "armor": [
+    {
+      "type": "Armor",
+      "name": "Armored Flight Suit",
+      "category": "Light",
+      "proficiency": "Armor Proficiency (Light)",
+      "cost": 4000,
+      "armorBonus": 5,
+      "equipmentBonus": 2,
+      "maxDexBonus": 3,
+      "weight": 10,
+      "availability": [
+        "Licensed"
+      ],
+      "source": "Saga Edition Core Rulebook",
+      "armorCheckPenalty": -2,
+      "speed6": 6,
+      "speed4": 4
+    },
+    {
+      "type": "Armor",
+      "name": "Blast Helmet and Vest",
+      "category": "Light",
+      "proficiency": "Armor Proficiency (Light)",
+      "cost": 500,
+      "armorBonus": 2,
+      "equipmentBonus": 0,
+      "maxDexBonus": 5,
+      "weight": 3,
+      "availability": [],
+      "source": "Saga Edition Core Rulebook",
+      "armorCheckPenalty": -2,
+      "speed6": 6,
+      "speed4": 4
+    },
+    {
+      "type": "Armor",
+      "name": "Combat Jumpsuit",
+      "category": "Light",
+      "proficiency": "Armor Proficiency (Light)",
+      "cost": 1500,
+      "armorBonus": 4,
+      "equipmentBonus": 0,
+      "maxDexBonus": 4,
+      "weight": 8,
+      "availability": [
+        "Licensed"
+      ],
+      "source": "Saga Edition Core Rulebook",
+      "armorCheckPenalty": -2,
+      "speed6": 6,
+      "speed4": 4
+    },
+    {
+      "type": "Armor",
+      "name": "Padded Flight Suit",
+      "category": "Light",
+      "proficiency": "Armor Proficiency (Light)",
+      "cost": 2000,
+      "armorBonus": 3,
+      "equipmentBonus": 1,
+      "maxDexBonus": 4,
+      "weight": 5,
+      "availability": [],
+      "source": "Saga Edition Core Rulebook",
+      "armorCheckPenalty": -2,
+      "speed6": 6,
+      "speed4": 4
+    },
+    {
+      "type": "Armor",
+      "name": "Stormtrooper Armor",
+      "category": "Light",
+      "proficiency": "Armor Proficiency (Light)",
+      "cost": 8000,
+      "armorBonus": 6,
+      "equipmentBonus": 2,
+      "maxDexBonus": 3,
+      "weight": 10,
+      "availability": [
+        "Military",
+        "Rare"
+      ],
+      "source": "Saga Edition Core Rulebook",
+      "armorCheckPenalty": -2,
+      "speed6": 6,
+      "speed4": 4
+    },
+    {
+      "type": "Armor",
+      "name": "Vonduun Crabshell",
+      "category": "Light",
+      "proficiency": "Armor Proficiency (Light)",
+      "cost": null,
+      "armorBonus": 5,
+      "equipmentBonus": 5,
+      "maxDexBonus": 4,
+      "weight": 5,
+      "availability": [
+        "Rare"
+      ],
+      "source": "Saga Edition Core Rulebook",
+      "armorCheckPenalty": -2,
+      "speed6": 6,
+      "speed4": 4
+    },
+    {
+      "type": "Armor",
+      "name": "Energy Shields, Light",
+      "category": "Light",
+      "proficiency": "Armor Proficiency (Light)",
+      "cost": null,
+      "armorBonus": 0,
+      "equipmentBonus": 0,
+      "maxDexBonus": 4,
+      "weight": 1,
+      "availability": [],
+      "source": "Knights of the Old Republic Campaign Guide",
+      "benefit": "Cost varies.",
+      "armorCheckPenalty": -2,
+      "speed6": 6,
+      "speed4": 4
+    },
+    {
+      "type": "Armor",
+      "name": "Fiber Armor",
+      "category": "Light",
+      "proficiency": "Armor Proficiency (Light)",
+      "cost": 3000,
+      "armorBonus": 4,
+      "equipmentBonus": 1,
+      "maxDexBonus": 2,
+      "weight": 10,
+      "availability": [
+        "Licensed"
+      ],
+      "source": "Knights of the Old Republic Campaign Guide",
+      "armorCheckPenalty": -2,
+      "speed6": 6,
+      "speed4": 4
+    },
+    {
+      "type": "Armor",
+      "name": "Light Battle Armor",
+      "category": "Light",
+      "proficiency": "Armor Proficiency (Light)",
+      "cost": 3500,
+      "armorBonus": 5,
+      "equipmentBonus": 2,
+      "maxDexBonus": 3,
+      "weight": 10,
+      "availability": [
+        "Military"
+      ],
+      "source": "Knights of the Old Republic Campaign Guide",
+      "armorCheckPenalty": -2,
+      "speed6": 6,
+      "speed4": 4
+    },
+    {
+      "type": "Armor",
+      "name": "Light Powered Battle Armor",
+      "category": "Light",
+      "proficiency": "Armor Proficiency (Light)",
+      "cost": 6500,
+      "armorBonus": 4,
+      "equipmentBonus": 2,
+      "maxDexBonus": 3,
+      "weight": 12,
+      "availability": [
+        "Military"
+      ],
+      "source": "Knights of the Old Republic Campaign Guide",
+      "armorCheckPenalty": -2,
+      "speed6": 6,
+      "speed4": 4
+    },
+    {
+      "type": "Armor",
+      "name": "Mandalorian Combat Suit",
+      "category": "Light",
+      "proficiency": "Armor Proficiency (Light)",
+      "cost": null,
+      "armorBonus": 4,
+      "equipmentBonus": 1,
+      "maxDexBonus": 5,
+      "weight": 8,
+      "availability": [
+        "Military",
+        "Rare"
+      ],
+      "source": "Knights of the Old Republic Campaign Guide",
+      "armorCheckPenalty": -2,
+      "speed6": 6,
+      "speed4": 4
+    },
+    {
+      "type": "Armor",
+      "name": "Neo-Crusader Light Armor",
+      "category": "Light",
+      "proficiency": "Armor Proficiency (Light)",
+      "cost": null,
+      "armorBonus": 6,
+      "equipmentBonus": 2,
+      "maxDexBonus": 3,
+      "weight": 42,
+      "availability": [
+        "Rare"
+      ],
+      "source": "Knights of the Old Republic Campaign Guide",
+      "armorCheckPenalty": -2,
+      "speed6": 6,
+      "speed4": 4
+    },
+    {
+      "type": "Armor",
+      "name": "Republic Light Armor",
+      "category": "Light",
+      "proficiency": "Armor Proficiency (Light)",
+      "cost": null,
+      "armorBonus": 4,
+      "equipmentBonus": 1,
+      "maxDexBonus": 3,
+      "weight": 7,
+      "availability": [
+        "Military"
+      ],
+      "source": "Knights of the Old Republic Campaign Guide",
+      "armorCheckPenalty": -2,
+      "speed6": 6,
+      "speed4": 4
+    },
+    {
+      "type": "Armor",
+      "name": "Half-Vest",
+      "category": "Light",
+      "proficiency": "Armor Proficiency (Light)",
+      "cost": 250,
+      "armorBonus": 1,
+      "equipmentBonus": 0,
+      "maxDexBonus": 5,
+      "weight": 2,
+      "availability": [
+        "Restricted"
+      ],
+      "source": "Scum and Villainy",
+      "armorCheckPenalty": -2,
+      "speed6": 6,
+      "speed4": 4
+    },
+    {
+      "type": "Armor",
+      "name": "Light Beskar'gam",
+      "category": "Light",
+      "proficiency": "Armor Proficiency (Light)",
+      "cost": 33500,
+      "armorBonus": 5,
+      "equipmentBonus": 2,
+      "maxDexBonus": 3,
+      "weight": 10,
+      "availability": [
+        "Licensed",
+        "Rare"
+      ],
+      "source": "Scum and Villainy",
+      "armorCheckPenalty": -2,
+      "speed6": 6,
+      "speed4": 4
+    },
+    {
+      "type": "Armor",
+      "name": "Shadowsuit",
+      "category": "Light",
+      "proficiency": "Armor Proficiency (Light)",
+      "cost": 600,
+      "armorBonus": 1,
+      "equipmentBonus": 1,
+      "maxDexBonus": 5,
+      "weight": 2,
+      "availability": [
+        "Military"
+      ],
+      "source": "Scum and Villainy",
+      "armorCheckPenalty": -2,
+      "speed6": 6,
+      "speed4": 4
+    },
+    {
+      "type": "Armor",
+      "name": "Thinsuit",
+      "category": "Light",
+      "proficiency": "Armor Proficiency (Light)",
+      "cost": 900,
+      "armorBonus": 0,
+      "equipmentBonus": 0,
+      "maxDexBonus": 6,
+      "weight": 1,
+      "availability": [],
+      "source": "Clone Wars Campaign Guide",
+      "armorCheckPenalty": -2,
+      "speed6": 6,
+      "speed4": 4
+    },
+    {
+      "type": "Armor",
+      "name": "Tracker Utility Vest",
+      "category": "Light",
+      "proficiency": "Armor Proficiency (Light)",
+      "cost": 300,
+      "armorBonus": 1,
+      "equipmentBonus": 0,
+      "maxDexBonus": 5,
+      "weight": 0.5,
+      "availability": [],
+      "source": "Clone Wars Campaign Guide",
+      "armorCheckPenalty": -2,
+      "speed6": 6,
+      "speed4": 4
+    },
+    {
+      "type": "Armor",
+      "name": "Galactic Alliance Armor",
+      "category": "Light",
+      "proficiency": "Armor Proficiency (Light)",
+      "cost": 6000,
+      "armorBonus": 4,
+      "equipmentBonus": 1,
+      "maxDexBonus": 3,
+      "weight": 9,
+      "availability": [
+        "Military"
+      ],
+      "source": "Legacy Era Campaign Guide",
+      "armorCheckPenalty": -2,
+      "speed6": 6,
+      "speed4": 4
+    },
+    {
+      "type": "Armor",
+      "name": "Blinding Helmet",
+      "category": "Light",
+      "proficiency": "Armor Proficiency (Light)",
+      "cost": 200,
+      "armorBonus": 0,
+      "equipmentBonus": 0,
+      "maxDexBonus": null,
+      "weight": 2,
+      "availability": [
+        "Rare"
+      ],
+      "source": "Jedi Academy Training Manual",
+      "armorCheckPenalty": -2,
+      "speed6": 6,
+      "speed4": 4
+    },
+    {
+      "type": "Armor",
+      "name": "Light Dark Armor",
+      "category": "Light",
+      "proficiency": "Armor Proficiency (Light)",
+      "cost": 10000,
+      "armorBonus": 4,
+      "equipmentBonus": 3,
+      "maxDexBonus": 3,
+      "weight": 10,
+      "availability": [
+        "Rare"
+      ],
+      "source": "Jedi Academy Training Manual",
+      "armorCheckPenalty": -2,
+      "speed6": 6,
+      "speed4": 4
+    },
+    {
+      "type": "Armor",
+      "name": "Light Jedi Battle Armor",
+      "category": "Light",
+      "proficiency": "Armor Proficiency (Light)",
+      "cost": 4000,
+      "armorBonus": 3,
+      "equipmentBonus": 3,
+      "maxDexBonus": 4,
+      "weight": 6,
+      "availability": [
+        "Rare"
+      ],
+      "source": "Jedi Academy Training Manual",
+      "armorCheckPenalty": -2,
+      "speed6": 6,
+      "speed4": 4
+    },
+    {
+      "type": "Armor",
+      "name": "KZZ Riot Armor",
+      "category": "Light",
+      "proficiency": "Armor Proficiency (Light)",
+      "cost": 2500,
+      "armorBonus": 2,
+      "equipmentBonus": 2,
+      "maxDexBonus": 5,
+      "weight": 6,
+      "availability": [
+        "Military"
+      ],
+      "source": "Rebellion Era Campaign Guide",
+      "armorCheckPenalty": -2,
+      "speed6": 6,
+      "speed4": 4
+    },
+    {
+      "type": "Armor",
+      "name": "Seatrooper Armor",
+      "category": "Light",
+      "proficiency": "Armor Proficiency (Light)",
+      "cost": 6750,
+      "armorBonus": 4,
+      "equipmentBonus": 2,
+      "maxDexBonus": 2,
+      "weight": 14,
+      "availability": [
+        "Military"
+      ],
+      "source": "Rebellion Era Campaign Guide",
+      "armorCheckPenalty": -2,
+      "speed6": 6,
+      "speed4": 4
+    },
+    {
+      "type": "Armor",
+      "name": "Shield Gauntlet",
+      "category": "Light",
+      "proficiency": "Armor Proficiency (Light)",
+      "cost": 1500,
+      "armorBonus": 0,
+      "equipmentBonus": 0,
+      "maxDexBonus": null,
+      "weight": 1,
+      "availability": [
+        "Rare"
+      ],
+      "source": "Rebellion Era Campaign Guide",
+      "armorCheckPenalty": -2,
+      "speed6": 6,
+      "speed4": 4
+    },
+    {
+      "type": "Armor",
+      "name": "Marine Armor",
+      "category": "Light",
+      "proficiency": "Armor Proficiency (Light)",
+      "cost": 5000,
+      "armorBonus": 5,
+      "equipmentBonus": 2,
+      "maxDexBonus": 3,
+      "weight": 12,
+      "availability": [
+        "Restricted"
+      ],
+      "source": "Galaxy at War",
+      "armorCheckPenalty": -2,
+      "speed6": 6,
+      "speed4": 4
+    },
+    {
+      "type": "Armor",
+      "name": "Microbe Armor",
+      "category": "Light",
+      "proficiency": "Armor Proficiency (Light)",
+      "cost": 4000,
+      "armorBonus": 2,
+      "equipmentBonus": 0,
+      "maxDexBonus": 3,
+      "weight": 6,
+      "availability": [
+        "Licensed"
+      ],
+      "source": "Galaxy at War",
+      "armorCheckPenalty": -2,
+      "speed6": 6,
+      "speed4": 4
+    },
+    {
+      "type": "Armor",
+      "name": "Stun Cloak",
+      "category": "Light",
+      "proficiency": "Armor Proficiency (Light)",
+      "cost": 3500,
+      "armorBonus": 1,
+      "equipmentBonus": 0,
+      "maxDexBonus": 5,
+      "weight": 2,
+      "availability": [
+        "Licensed"
+      ],
+      "source": "Galaxy at War",
+      "armorCheckPenalty": -2,
+      "speed6": 6,
+      "speed4": 4
+    },
+    {
+      "type": "Armor",
+      "name": "Light Pressure Suit",
+      "category": "Light",
+      "proficiency": "Armor Proficiency (Light)",
+      "cost": 4000,
+      "armorBonus": 5,
+      "equipmentBonus": 2,
+      "maxDexBonus": 3,
+      "weight": 10,
+      "availability": [
+        "Rare"
+      ],
+      "source": "Web Enhancements",
+      "armorCheckPenalty": -2,
+      "speed6": 6,
+      "speed4": 4
+    },
+    {
+      "type": "Armor",
+      "name": "Battle Armor",
+      "category": "Medium",
+      "proficiency": "Armor Proficiency (Medium)",
+      "cost": 7000,
+      "armorBonus": 8,
+      "equipmentBonus": 2,
+      "maxDexBonus": 2,
+      "weight": 16,
+      "availability": [
+        "Military"
+      ],
+      "source": "Saga Edition Core Rulebook",
+      "armorCheckPenalty": -5,
+      "speed6": 4,
+      "speed4": 3
+    },
+    {
+      "type": "Armor",
+      "name": "Ceremonial Armor",
+      "category": "Medium",
+      "proficiency": "Armor Proficiency (Medium)",
+      "cost": 5000,
+      "armorBonus": 7,
+      "equipmentBonus": 0,
+      "maxDexBonus": 2,
+      "weight": 13,
+      "availability": [
+        "Restricted"
+      ],
+      "source": "Saga Edition Core Rulebook",
+      "armorCheckPenalty": -5,
+      "speed6": 4,
+      "speed4": 3
+    },
+    {
+      "type": "Armor",
+      "name": "Corellian Powersuit",
+      "category": "Medium",
+      "proficiency": "Armor Proficiency (Medium)",
+      "cost": 10000,
+      "armorBonus": 7,
+      "equipmentBonus": 0,
+      "maxDexBonus": 3,
+      "weight": 20,
+      "availability": [
+        "Restricted"
+      ],
+      "source": "Saga Edition Core Rulebook",
+      "armorCheckPenalty": -5,
+      "speed6": 4,
+      "speed4": 3
+    },
+    {
+      "type": "Armor",
+      "name": "Energy Shields, Medium",
+      "category": "Medium",
+      "proficiency": "Armor Proficiency (Medium)",
+      "cost": null,
+      "armorBonus": 0,
+      "equipmentBonus": 0,
+      "maxDexBonus": 3,
+      "weight": 1,
+      "availability": [],
+      "source": "Knights of the Old Republic Campaign Guide",
+      "benefit": "Cost varies.",
+      "armorCheckPenalty": -5,
+      "speed6": 4,
+      "speed4": 3
+    },
+    {
+      "type": "Armor",
+      "name": "Mandalorian Battle Armor",
+      "category": "Medium",
+      "proficiency": "Armor Proficiency (Medium)",
+      "cost": null,
+      "armorBonus": 8,
+      "equipmentBonus": 2,
+      "maxDexBonus": 2,
+      "weight": 18,
+      "availability": [
+        "Rare"
+      ],
+      "source": "Knights of the Old Republic Campaign Guide",
+      "armorCheckPenalty": -5,
+      "speed6": 4,
+      "speed4": 3
+    },
+    {
+      "type": "Armor",
+      "name": "Mesh Armor",
+      "category": "Medium",
+      "proficiency": "Armor Proficiency (Medium)",
+      "cost": 6000,
+      "armorBonus": 6,
+      "equipmentBonus": 2,
+      "maxDexBonus": 2,
+      "weight": 13,
+      "availability": [
+        "Restricted"
+      ],
+      "source": "Knights of the Old Republic Campaign Guide",
+      "armorCheckPenalty": -5,
+      "speed6": 4,
+      "speed4": 3
+    },
+    {
+      "type": "Armor",
+      "name": "Powered Battle Armor",
+      "category": "Medium",
+      "proficiency": "Armor Proficiency (Medium)",
+      "cost": 11000,
+      "armorBonus": 7,
+      "equipmentBonus": 2,
+      "maxDexBonus": 2,
+      "weight": 17,
+      "availability": [
+        "Military"
+      ],
+      "source": "Knights of the Old Republic Campaign Guide",
+      "armorCheckPenalty": -5,
+      "speed6": 4,
+      "speed4": 3
+    },
+    {
+      "type": "Armor",
+      "name": "Republic Combat Armor",
+      "category": "Medium",
+      "proficiency": "Armor Proficiency (Medium)",
+      "cost": null,
+      "armorBonus": 6,
+      "equipmentBonus": 2,
+      "maxDexBonus": 2,
+      "weight": 14,
+      "availability": [
+        "Military"
+      ],
+      "source": "Knights of the Old Republic Campaign Guide",
+      "armorCheckPenalty": -5,
+      "speed6": 4,
+      "speed4": 3
+    },
+    {
+      "type": "Armor",
+      "name": "Weave Armor",
+      "category": "Medium",
+      "proficiency": "Armor Proficiency (Medium)",
+      "cost": 5000,
+      "armorBonus": 6,
+      "equipmentBonus": 2,
+      "maxDexBonus": 3,
+      "weight": 15,
+      "availability": [
+        "Restricted"
+      ],
+      "source": "Knights of the Old Republic Campaign Guide",
+      "armorCheckPenalty": -5,
+      "speed6": 4,
+      "speed4": 3
+    },
+    {
+      "type": "Armor",
+      "name": "Medium Beskar'gam",
+      "category": "Medium",
+      "proficiency": "Armor Proficiency (Medium)",
+      "cost": 37000,
+      "armorBonus": 8,
+      "equipmentBonus": 2,
+      "maxDexBonus": 2,
+      "weight": 17,
+      "availability": [
+        "Restricted",
+        "Rare"
+      ],
+      "source": "Scum and Villainy",
+      "armorCheckPenalty": -5,
+      "speed6": 4,
+      "speed4": 3
+    },
+    {
+      "type": "Armor",
+      "name": "Model 210 Personal Armor",
+      "category": "Medium",
+      "proficiency": "Armor Proficiency (Medium)",
+      "cost": 16300,
+      "armorBonus": 7,
+      "equipmentBonus": 1,
+      "maxDexBonus": 3,
+      "weight": 17,
+      "availability": [
+        "Military"
+      ],
+      "source": "Scum and Villainy",
+      "armorCheckPenalty": -5,
+      "speed6": 4,
+      "speed4": 3
+    },
+    {
+      "type": "Armor",
+      "name": "AV-1S Scout Armor",
+      "category": "Medium",
+      "proficiency": "Armor Proficiency (Medium)",
+      "cost": 15000,
+      "armorBonus": 7,
+      "equipmentBonus": 2,
+      "maxDexBonus": 2,
+      "weight": 18,
+      "availability": [
+        "Military"
+      ],
+      "source": "Scum and Villainy",
+      "armorCheckPenalty": -5,
+      "speed6": 4,
+      "speed4": 3
+    },
+    {
+      "type": "Armor",
+      "name": "Camo Armor",
+      "category": "Medium",
+      "proficiency": "Armor Proficiency (Medium)",
+      "cost": 6000,
+      "armorBonus": 5,
+      "equipmentBonus": 0,
+      "maxDexBonus": 3,
+      "weight": 6,
+      "availability": [
+        "Restricted"
+      ],
+      "source": "Clone Wars Campaign Guide",
+      "armorCheckPenalty": -5,
+      "speed6": 4,
+      "speed4": 3
+    },
+    {
+      "type": "Armor",
+      "name": "Cortosis Gauntlet",
+      "category": "Medium",
+      "proficiency": "Armor Proficiency (Medium)",
+      "cost": 1500,
+      "armorBonus": 0,
+      "equipmentBonus": 0,
+      "maxDexBonus": null,
+      "weight": 1,
+      "availability": [
+        "Rare"
+      ],
+      "source": "Legacy Era Campaign Guide",
+      "armorCheckPenalty": -5,
+      "speed6": 4,
+      "speed4": 3
+    },
+    {
+      "type": "Armor",
+      "name": "Imperial Knight Armor",
+      "category": "Medium",
+      "proficiency": "Armor Proficiency (Medium)",
+      "cost": 7000,
+      "armorBonus": 8,
+      "equipmentBonus": 2,
+      "maxDexBonus": 3,
+      "weight": 16,
+      "availability": [
+        "Rare"
+      ],
+      "source": "Legacy Era Campaign Guide",
+      "armorCheckPenalty": -5,
+      "speed6": 4,
+      "speed4": 3
+    },
+    {
+      "type": "Armor",
+      "name": "Knighthunter Armor",
+      "category": "Medium",
+      "proficiency": "Armor Proficiency (Medium)",
+      "cost": 6000,
+      "armorBonus": 7,
+      "equipmentBonus": 2,
+      "maxDexBonus": 3,
+      "weight": 13,
+      "availability": [
+        "Military"
+      ],
+      "source": "Legacy Era Campaign Guide",
+      "armorCheckPenalty": -5,
+      "speed6": 4,
+      "speed4": 3
+    },
+    {
+      "type": "Armor",
+      "name": "Dark Armor",
+      "category": "Medium",
+      "proficiency": "Armor Proficiency (Medium)",
+      "cost": 15000,
+      "armorBonus": 7,
+      "equipmentBonus": 4,
+      "maxDexBonus": 2,
+      "weight": 16,
+      "availability": [
+        "Rare"
+      ],
+      "source": "Jedi Academy Training Manual",
+      "armorCheckPenalty": -5,
+      "speed6": 4,
+      "speed4": 3
+    },
+    {
+      "type": "Armor",
+      "name": "Jedi Battle Armor",
+      "category": "Medium",
+      "proficiency": "Armor Proficiency (Medium)",
+      "cost": 6000,
+      "armorBonus": 5,
+      "equipmentBonus": 5,
+      "maxDexBonus": 3,
+      "weight": 12,
+      "availability": [
+        "Rare"
+      ],
+      "source": "Jedi Academy Training Manual",
+      "armorCheckPenalty": -5,
+      "speed6": 4,
+      "speed4": 3
+    },
+    {
+      "type": "Armor",
+      "name": "Biohazard Suit",
+      "category": "Medium",
+      "proficiency": "Armor Proficiency (Medium)",
+      "cost": 4000,
+      "armorBonus": 0,
+      "equipmentBonus": 3,
+      "maxDexBonus": 0,
+      "weight": 9,
+      "availability": [
+        "Licensed"
+      ],
+      "source": "Galaxy at War",
+      "armorCheckPenalty": -5,
+      "speed6": 4,
+      "speed4": 3
+    },
+    {
+      "type": "Armor",
+      "name": "Camo Scout Armor",
+      "category": "Medium",
+      "proficiency": "Armor Proficiency (Medium)",
+      "cost": 6000,
+      "armorBonus": 6,
+      "equipmentBonus": 2,
+      "maxDexBonus": 3,
+      "weight": 12,
+      "availability": [
+        "Licensed"
+      ],
+      "source": "Galaxy at War",
+      "armorCheckPenalty": -5,
+      "speed6": 4,
+      "speed4": 3
+    },
+    {
+      "type": "Armor",
+      "name": "Katarn-Class Commando Armor",
+      "category": "Medium",
+      "proficiency": "Armor Proficiency (Medium)",
+      "cost": 30000,
+      "armorBonus": 9,
+      "equipmentBonus": 4,
+      "maxDexBonus": 1,
+      "weight": 20,
+      "availability": [
+        "Military"
+      ],
+      "source": "Galaxy at War",
+      "armorCheckPenalty": -5,
+      "speed6": 4,
+      "speed4": 3
+    },
+    {
+      "type": "Armor",
+      "name": "M1-10 Stalker Armor",
+      "category": "Medium",
+      "proficiency": "Armor Proficiency (Medium)",
+      "cost": 7500,
+      "armorBonus": 7,
+      "equipmentBonus": 0,
+      "maxDexBonus": 3,
+      "weight": 10,
+      "availability": [
+        "Licensed"
+      ],
+      "source": "Galaxy at War",
+      "armorCheckPenalty": -5,
+      "speed6": 4,
+      "speed4": 3
+    },
+    {
+      "type": "Armor",
+      "name": "Medium Pressure Suit",
+      "category": "Medium",
+      "proficiency": "Armor Proficiency (Medium)",
+      "cost": 7000,
+      "armorBonus": 8,
+      "equipmentBonus": 2,
+      "maxDexBonus": 2,
+      "weight": 16,
+      "availability": [
+        "Rare"
+      ],
+      "source": "Web Enhancements",
+      "armorCheckPenalty": -5,
+      "speed6": 4,
+      "speed4": 3
+    },
+    {
+      "type": "Armor",
+      "name": "Armored Space Suit",
+      "category": "Heavy",
+      "proficiency": "Armor Proficiency (Heavy)",
+      "cost": 12000,
+      "armorBonus": 9,
+      "equipmentBonus": 3,
+      "maxDexBonus": 1,
+      "weight": 35,
+      "availability": [
+        "Restricted"
+      ],
+      "source": "Saga Edition Core Rulebook",
+      "armorCheckPenalty": -10,
+      "speed6": 4,
+      "speed4": 3
+    },
+    {
+      "type": "Armor",
+      "name": "Heavy Battle Armor",
+      "category": "Heavy",
+      "proficiency": "Armor Proficiency (Heavy)",
+      "cost": 15000,
+      "armorBonus": 10,
+      "equipmentBonus": 4,
+      "maxDexBonus": 1,
+      "weight": 30,
+      "availability": [
+        "Military"
+      ],
+      "source": "Saga Edition Core Rulebook",
+      "armorCheckPenalty": -10,
+      "speed6": 4,
+      "speed4": 3
+    },
+    {
+      "type": "Armor",
+      "name": "Energy Shields, Heavy",
+      "category": "Heavy",
+      "proficiency": "Armor Proficiency (Heavy)",
+      "cost": null,
+      "armorBonus": 0,
+      "equipmentBonus": 0,
+      "maxDexBonus": 2,
+      "weight": 1,
+      "availability": [],
+      "source": "Knights of the Old Republic Campaign Guide",
+      "benefit": "Cost varies.",
+      "armorCheckPenalty": -10,
+      "speed6": 4,
+      "speed4": 3
+    },
+    {
+      "type": "Armor",
+      "name": "Heavy Powered Battle Armor",
+      "category": "Heavy",
+      "proficiency": "Armor Proficiency (Heavy)",
+      "cost": 19000,
+      "armorBonus": 9,
+      "equipmentBonus": 4,
+      "maxDexBonus": 1,
+      "weight": 32,
+      "availability": [
+        "Military"
+      ],
+      "source": "Knights of the Old Republic Campaign Guide",
+      "armorCheckPenalty": -10,
+      "speed6": 4,
+      "speed4": 3
+    },
+    {
+      "type": "Armor",
+      "name": "Matrix Armor",
+      "category": "Heavy",
+      "proficiency": "Armor Proficiency (Heavy)",
+      "cost": 9000,
+      "armorBonus": 9,
+      "equipmentBonus": 3,
+      "maxDexBonus": 1,
+      "weight": 25,
+      "availability": [
+        "Restricted"
+      ],
+      "source": "Knights of the Old Republic Campaign Guide",
+      "armorCheckPenalty": -10,
+      "speed6": 4,
+      "speed4": 3
+    },
+    {
+      "type": "Armor",
+      "name": "Neo-Crusader Assault Armor",
+      "category": "Heavy",
+      "proficiency": "Armor Proficiency (Heavy)",
+      "cost": null,
+      "armorBonus": 10,
+      "equipmentBonus": 4,
+      "maxDexBonus": 1,
+      "weight": 65,
+      "availability": [
+        "Military",
+        "Rare"
+      ],
+      "source": "Knights of the Old Republic Campaign Guide",
+      "armorCheckPenalty": -10,
+      "speed6": 4,
+      "speed4": 3
+    },
+    {
+      "type": "Armor",
+      "name": "Republic Heavy Armor",
+      "category": "Heavy",
+      "proficiency": "Armor Proficiency (Heavy)",
+      "cost": null,
+      "armorBonus": 8,
+      "equipmentBonus": 3,
+      "maxDexBonus": 1,
+      "weight": 26,
+      "availability": [
+        "Military"
+      ],
+      "source": "Knights of the Old Republic Campaign Guide",
+      "armorCheckPenalty": -10,
+      "speed6": 4,
+      "speed4": 3
+    },
+    {
+      "type": "Armor",
+      "name": "AV-1C Combat Armor",
+      "category": "Heavy",
+      "proficiency": "Armor Proficiency (Heavy)",
+      "cost": 25000,
+      "armorBonus": 9,
+      "equipmentBonus": 4,
+      "maxDexBonus": 1,
+      "weight": 25,
+      "availability": [
+        "Restricted",
+        "Rare"
+      ],
+      "source": "Scum and Villainy",
+      "armorCheckPenalty": -10,
+      "speed6": 4,
+      "speed4": 3
+    },
+    {
+      "type": "Armor",
+      "name": "Heavy Beskar'gam",
+      "category": "Heavy",
+      "proficiency": "Armor Proficiency (Heavy)",
+      "cost": 45000,
+      "armorBonus": 10,
+      "equipmentBonus": 4,
+      "maxDexBonus": 1,
+      "weight": 32,
+      "availability": [
+        "Restricted",
+        "Rare"
+      ],
+      "source": "Scum and Villainy",
+      "armorCheckPenalty": -10,
+      "speed6": 4,
+      "speed4": 3
+    },
+    {
+      "type": "Armor",
+      "name": "Vacuum Pod",
+      "category": "Heavy",
+      "proficiency": "Armor Proficiency (Heavy)",
+      "cost": 15000,
+      "armorBonus": 4,
+      "equipmentBonus": 1,
+      "maxDexBonus": 0,
+      "weight": 35,
+      "availability": [],
+      "source": "Clone Wars Campaign Guide",
+      "armorCheckPenalty": -10,
+      "speed6": 4,
+      "speed4": 3
+    },
+    {
+      "type": "Armor",
+      "name": "Venom Assault Armor",
+      "category": "Heavy",
+      "proficiency": "Armor Proficiency (Heavy)",
+      "cost": 17000,
+      "armorBonus": 10,
+      "equipmentBonus": 4,
+      "maxDexBonus": 1,
+      "weight": 38,
+      "availability": [
+        "Military"
+      ],
+      "source": "Legacy Era Campaign Guide",
+      "armorCheckPenalty": -10,
+      "speed6": 4,
+      "speed4": 3
+    },
+    {
+      "type": "Armor",
+      "name": "Heavy Dark Armor",
+      "category": "Heavy",
+      "proficiency": "Armor Proficiency (Heavy)",
+      "cost": 25000,
+      "armorBonus": 8,
+      "equipmentBonus": 5,
+      "maxDexBonus": 1,
+      "weight": 30,
+      "availability": [
+        "Rare"
+      ],
+      "source": "Jedi Academy Training Manual",
+      "armorCheckPenalty": -10,
+      "speed6": 4,
+      "speed4": 3
+    },
+    {
+      "type": "Armor",
+      "name": "Orbalisk Armor",
+      "category": "Heavy",
+      "proficiency": "Armor Proficiency (Heavy)",
+      "cost": null,
+      "armorBonus": 10,
+      "equipmentBonus": 2,
+      "maxDexBonus": 1,
+      "weight": 26,
+      "availability": [
+        "Rare"
+      ],
+      "source": "Jedi Academy Training Manual",
+      "armorCheckPenalty": -10,
+      "speed6": 4,
+      "speed4": 3
+    },
+    {
+      "type": "Armor",
+      "name": "Zero-Gravity Stormtrooper Armor",
+      "category": "Heavy",
+      "proficiency": "Armor Proficiency (Heavy)",
+      "cost": 21000,
+      "armorBonus": 9,
+      "equipmentBonus": 3,
+      "maxDexBonus": 0,
+      "weight": 38,
+      "availability": [
+        "Military"
+      ],
+      "source": "Rebellion Era Campaign Guide",
+      "armorCheckPenalty": -10,
+      "speed6": 4,
+      "speed4": 3
+    },
+    {
+      "type": "Armor",
+      "name": "Heavy Pressure Suit",
+      "category": "Heavy",
+      "proficiency": "Armor Proficiency (Heavy)",
+      "cost": 12000,
+      "armorBonus": 9,
+      "equipmentBonus": 3,
+      "maxDexBonus": 1,
+      "weight": 35,
+      "availability": [
+        "Rare"
+      ],
+      "source": "Web Enhancements",
+      "armorCheckPenalty": -10,
+      "speed6": 4,
+      "speed4": 3
+    }
+  ],
+  "weapons": [
+    {
+      "type": "Weapon",
+      "name": "Vibrodagger",
+      "category": "Advanced Melee Weapons",
+      "proficiency": "Advanced Melee Weapons",
+      "cost": 200,
+      "damage": "2d4",
+      "weight": 1,
+      "weaponType": "Slashing or Piercing",
+      "availability": [],
+      "source": "Saga Edition Core Rulebook",
+      "benefit": "Can be thrown."
+    },
+    {
+      "type": "Weapon",
+      "name": "Vibroblade",
+      "category": "Advanced Melee Weapons",
+      "proficiency": "Advanced Melee Weapons",
+      "cost": 250,
+      "damage": "2d6",
+      "weight": 1.8,
+      "weaponType": "Slashing or Piercing",
+      "availability": [
+        "Licensed"
+      ],
+      "source": "Saga Edition Core Rulebook"
+    },
+    {
+      "type": "Weapon",
+      "name": "Force Pike",
+      "category": "Advanced Melee Weapons",
+      "proficiency": "Advanced Melee Weapons",
+      "cost": 500,
+      "damage": "2d8",
+      "weight": 2,
+      "weaponType": "Piercing and Energy",
+      "availability": [
+        "Restricted"
+      ],
+      "source": "Saga Edition Core Rulebook"
+    },
+    {
+      "type": "Weapon",
+      "name": "Electrostaff",
+      "category": "Advanced Melee Weapons",
+      "proficiency": "Advanced Melee Weapons",
+      "cost": 3000,
+      "damage": "2d6/2d6",
+      "weight": 2,
+      "weaponType": "Bludgeoning and Energy",
+      "availability": [
+        "Restricted"
+      ],
+      "source": "Saga Edition Core Rulebook"
+    },
+    {
+      "type": "Weapon",
+      "name": "Vibro-Axe",
+      "category": "Advanced Melee Weapons",
+      "proficiency": "Advanced Melee Weapons",
+      "cost": 500,
+      "damage": "2d10",
+      "weight": 6,
+      "weaponType": "Slashing",
+      "availability": [
+        "Restricted"
+      ],
+      "source": "Saga Edition Core Rulebook"
+    },
+    {
+      "type": "Weapon",
+      "name": "Bayonet",
+      "category": "Simple Weapons",
+      "proficiency": "Simple Weapons",
+      "cost": 50,
+      "damage": "1d8",
+      "weight": 1,
+      "weaponType": "Piercing",
+      "availability": [
+        "Licensed"
+      ],
+      "source": "Saga Edition Core Rulebook"
+    },
+    {
+      "type": "Weapon",
+      "name": "Club/Baton",
+      "category": "Simple Weapons",
+      "proficiency": "Simple Weapons",
+      "cost": 15,
+      "damage": "1d6",
+      "weight": 0.5,
+      "weaponType": "Bludgeoning",
+      "availability": [],
+      "source": "Saga Edition Core Rulebook"
+    },
+    {
+      "type": "Weapon",
+      "name": "Knife",
+      "category": "Simple Weapons",
+      "proficiency": "Simple Weapons",
+      "cost": 25,
+      "damage": "1d4",
+      "weight": 1,
+      "weaponType": "Slashing or Piercing",
+      "availability": [],
+      "source": "Saga Edition Core Rulebook",
+      "benefit": "Can be thrown."
+    },
+    {
+      "type": "Weapon",
+      "name": "Spear",
+      "category": "Simple Weapons",
+      "proficiency": "Simple Weapons",
+      "cost": 60,
+      "damage": "1d8",
+      "weight": 1.5,
+      "weaponType": "Piercing",
+      "availability": [],
+      "source": "Saga Edition Core Rulebook",
+      "benefit": "Can be thrown."
+    },
+    {
+      "type": "Weapon",
+      "name": "Stun Baton",
+      "category": "Simple Weapons",
+      "proficiency": "Simple Weapons",
+      "cost": 15,
+      "damage": "1d6",
+      "weight": 0.5,
+      "weaponType": "Bludgeoning or Energy",
+      "availability": [],
+      "source": "Saga Edition Core Rulebook",
+      "benefit": "Stun setting deals 2d6."
+    },
+    {
+      "type": "Weapon",
+      "name": "Lightsaber",
+      "category": "Lightsabers",
+      "proficiency": "Lightsabers",
+      "cost": 3000,
+      "damage": "2d8",
+      "weight": 1,
+      "weaponType": "Energy and Slashing",
+      "availability": [
+        "Rare"
+      ],
+      "source": "Saga Edition Core Rulebook",
+      "benefit": "Ignores Damage Reduction."
+    },
+    {
+      "type": "Weapon",
+      "name": "Short Lightsaber",
+      "category": "Lightsabers",
+      "proficiency": "Lightsabers",
+      "cost": 2500,
+      "damage": "2d6",
+      "weight": 0.5,
+      "weaponType": "Energy and Slashing",
+      "availability": [
+        "Rare"
+      ],
+      "source": "Saga Edition Core Rulebook",
+      "benefit": "Ignores Damage Reduction."
+    },
+    {
+      "type": "Weapon",
+      "name": "Double-Bladed Lightsaber",
+      "category": "Lightsabers",
+      "proficiency": "Lightsabers",
+      "cost": 7000,
+      "damage": "2d8/2d8",
+      "weight": 2,
+      "weaponType": "Energy and Slashing",
+      "availability": [
+        "Rare"
+      ],
+      "source": "Saga Edition Core Rulebook",
+      "benefit": "Ignores Damage Reduction."
+    },
+    {
+      "type": "Weapon",
+      "name": "Heavy Repeating Blaster",
+      "category": "Heavy Weapons",
+      "proficiency": "Heavy Weapons",
+      "cost": 4000,
+      "damage": "3d10",
+      "weight": 12,
+      "weaponType": "Energy",
+      "availability": [
+        "Military"
+      ],
+      "source": "Saga Edition Core Rulebook"
+    },
+    {
+      "type": "Weapon",
+      "name": "Blaster Cannon",
+      "category": "Heavy Weapons",
+      "proficiency": "Heavy Weapons",
+      "cost": 3000,
+      "damage": "3d12",
+      "weight": 18,
+      "weaponType": "Energy",
+      "availability": [
+        "Military"
+      ],
+      "source": "Saga Edition Core Rulebook"
+    },
+    {
+      "type": "Weapon",
+      "name": "Missile Launcher",
+      "category": "Heavy Weapons",
+      "proficiency": "Heavy Weapons",
+      "cost": 1500,
+      "damage": "6d6",
+      "weight": 10,
+      "weaponType": "Slashing",
+      "availability": [
+        "Military"
+      ],
+      "source": "Saga Edition Core Rulebook"
+    },
+    {
+      "type": "Weapon",
+      "name": "Blaster Pistol",
+      "category": "Pistols",
+      "proficiency": "Pistols",
+      "cost": 500,
+      "damage": "3d6",
+      "weight": 1,
+      "weaponType": "Energy",
+      "availability": [
+        "Restricted"
+      ],
+      "source": "Saga Edition Core Rulebook",
+      "benefit": "Has a stun setting."
+    },
+    {
+      "type": "Weapon",
+      "name": "Heavy Blaster Pistol",
+      "category": "Pistols",
+      "proficiency": "Pistols",
+      "cost": 750,
+      "damage": "3d8",
+      "weight": 1.3,
+      "weaponType": "Energy",
+      "availability": [
+        "Military"
+      ],
+      "source": "Saga Edition Core Rulebook",
+      "benefit": "Has a stun setting."
+    },
+    {
+      "type": "Weapon",
+      "name": "Hold-Out Blaster Pistol",
+      "category": "Pistols",
+      "proficiency": "Pistols",
+      "cost": 300,
+      "damage": "3d4",
+      "weight": 0.5,
+      "weaponType": "Energy",
+      "availability": [
+        "Illegal"
+      ],
+      "source": "Saga Edition Core Rulebook"
+    },
+    {
+      "type": "Weapon",
+      "name": "Ion Pistol",
+      "category": "Pistols",
+      "proficiency": "Pistols",
+      "cost": 250,
+      "damage": "3d6",
+      "weight": 1,
+      "weaponType": "Ion",
+      "availability": [
+        "Licensed"
+      ],
+      "source": "Saga Edition Core Rulebook"
+    },
+    {
+      "type": "Weapon",
+      "name": "Sporting Blaster Pistol",
+      "category": "Pistols",
+      "proficiency": "Pistols",
+      "cost": 300,
+      "damage": "3d4",
+      "weight": 1,
+      "weaponType": "Energy",
+      "availability": [
+        "Licensed"
+      ],
+      "source": "Saga Edition Core Rulebook",
+      "benefit": "Accurate; has a stun setting."
+    },
+    {
+      "type": "Weapon",
+      "name": "Slugthrower Pistol",
+      "category": "Pistols",
+      "proficiency": "Pistols",
+      "cost": 250,
+      "damage": "2d6",
+      "weight": 1.4,
+      "weaponType": "Piercing",
+      "availability": [
+        "Licensed"
+      ],
+      "source": "Saga Edition Core Rulebook"
+    },
+    {
+      "type": "Weapon",
+      "name": "Blaster Carbine",
+      "category": "Rifles",
+      "proficiency": "Rifles",
+      "cost": 900,
+      "damage": "3d8",
+      "weight": 2.2,
+      "weaponType": "Energy",
+      "availability": [
+        "Restricted"
+      ],
+      "source": "Saga Edition Core Rulebook",
+      "benefit": "Inaccurate; has a stun setting."
+    },
+    {
+      "type": "Weapon",
+      "name": "Blaster Rifle",
+      "category": "Rifles",
+      "proficiency": "Rifles",
+      "cost": 1000,
+      "damage": "3d8",
+      "weight": 4.5,
+      "weaponType": "Energy",
+      "availability": [
+        "Restricted"
+      ],
+      "source": "Saga Edition Core Rulebook",
+      "benefit": "Has a stun setting."
+    },
+    {
+      "type": "Weapon",
+      "name": "Sporting Blaster Rifle",
+      "category": "Rifles",
+      "proficiency": "Rifles",
+      "cost": 800,
+      "damage": "3d6",
+      "weight": 4,
+      "weaponType": "Energy",
+      "availability": [
+        "Licensed"
+      ],
+      "source": "Saga Edition Core Rulebook",
+      "benefit": "Accurate; has a stun setting."
+    },
+    {
+      "type": "Weapon",
+      "name": "Ion Rifle",
+      "category": "Rifles",
+      "proficiency": "Rifles",
+      "cost": 800,
+      "damage": "3d8",
+      "weight": 3.1,
+      "weaponType": "Ion",
+      "availability": [
+        "Restricted"
+      ],
+      "source": "Saga Edition Core Rulebook"
+    },
+    {
+      "type": "Weapon",
+      "name": "Slugthrower Rifle",
+      "category": "Rifles",
+      "proficiency": "Rifles",
+      "cost": 300,
+      "damage": "2d8",
+      "weight": 4,
+      "weaponType": "Piercing",
+      "availability": [
+        "Restricted"
+      ],
+      "source": "Saga Edition Core Rulebook"
+    },
+    {
+      "type": "Weapon",
+      "name": "Heavy Blaster Rifle",
+      "category": "Rifles",
+      "proficiency": "Rifles",
+      "cost": 2000,
+      "damage": "3d10",
+      "weight": 6,
+      "weaponType": "Energy",
+      "availability": [
+        "Military"
+      ],
+      "source": "Saga Edition Core Rulebook",
+      "benefit": "Inaccurate; has a stun setting."
+    },
+    {
+      "type": "Weapon",
+      "name": "Energy Ball",
+      "category": "Simple Weapons",
+      "proficiency": "Simple Weapons",
+      "cost": 20,
+      "damage": "2d8",
+      "weight": 0.25,
+      "weaponType": "Energy",
+      "availability": [
+        "Licensed",
+        "Rare"
+      ],
+      "source": "Saga Edition Core Rulebook"
+    },
+    {
+      "type": "Weapon",
+      "name": "Frag Grenade",
+      "category": "Grenades",
+      "proficiency": "Simple Weapons",
+      "cost": 200,
+      "damage": "4d6",
+      "weight": 0.5,
+      "weaponType": "Slashing",
+      "availability": [
+        "Military"
+      ],
+      "source": "Saga Edition Core Rulebook",
+      "benefit": "Area attack; thrown weapon."
+    },
+    {
+      "type": "Weapon",
+      "name": "Stun Grenade",
+      "category": "Grenades",
+      "proficiency": "Simple Weapons",
+      "cost": 250,
+      "damage": "4d6",
+      "weight": 0.5,
+      "weaponType": "Energy",
+      "availability": [
+        "Restricted"
+      ],
+      "source": "Saga Edition Core Rulebook",
+      "benefit": "Stun only; area attack; thrown weapon."
+    },
+    {
+      "type": "Weapon",
+      "name": "Thermal Detonator",
+      "category": "Grenades",
+      "proficiency": "Simple Weapons",
+      "cost": 2000,
+      "damage": "8d6",
+      "weight": 1,
+      "weaponType": "Energy",
+      "availability": [
+        "Illegal"
+      ],
+      "source": "Saga Edition Core Rulebook",
+      "benefit": "Area attack; thrown weapon."
+    }
+  ]
+}
