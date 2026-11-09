@@ -1,8 +1,5 @@
 {
-  "format": "saga-ledger-talent-catalog",
-  "version": 1,
-  "complete": true,
-  "reference": "https://swse.fandom.com/wiki/Talents",
+
   "source": "Talent trees, classes, books, benefits, and prerequisites populated from the user-provided talent-tree export. The source export includes reference and homebrew entries.",
   "entries": [
     {

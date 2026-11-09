@@ -1,9 +1,4 @@
 {
-  "format": "saga-ledger-feat-catalog",
-  "version": 1,
-  "complete": true,
-  "reference": "https://swse.fandom.com/wiki/Feats",
-  "source": "Complete for the app's bundled feat catalog: includes 284 feat detail records and 19 built-in feats. The full wiki page has not been independently verified.",
   "details": {
     "Acrobatic Strike":{"prerequisites":"Trained in Acrobatics","benefit":"Gain +2 competence bonus on your next attack against an opponent you tumble past."},
     "Armor Proficiency (Heavy)":{"prerequisites":"Armor Proficiency (Light), Armor Proficiency (Medium)","benefit":"Wear light, medium, or heavy armor without attack penalties or armor check penalty."},

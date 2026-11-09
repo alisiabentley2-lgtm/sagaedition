@@ -18,22 +18,9 @@ def build_app_html() -> str:
     for character, replacement in (("<", "\\u003c"), (">", "\\u003e"), ("&", "\\u0026")):
         catalog_json = catalog_json.replace(character, replacement)
 
-    bridge = f"""<script>
+    catalog_bootstrap = f"""<script>
       (() => {{
-        const catalogs = {catalog_json};
-        const nativeFetch = window.fetch.bind(window);
-        window.fetch = async (input, init) => {{
-          const url = typeof input === 'string' ? input : input instanceof URL ? input.href : input.url;
-          const filename = String(url).split(/[?#]/, 1)[0].split('/').pop();
-          if (Object.prototype.hasOwnProperty.call(catalogs, filename)) {{
-            const data = catalogs[filename];
-            return new Response(JSON.stringify(data), {{
-              status: 200,
-              headers: {{ "Content-Type": "application/json" }}
-            }});
-          }}
-          return nativeFetch(input, init);
-        }};
+        window.__SAGA_CATALOGS__ = {catalog_json};
       }})();
     </script>"""
 
@@ -41,7 +28,7 @@ def build_app_html() -> str:
     script_tag = "  <script>\n"
     if script_tag not in html:
         raise RuntimeError("Could not find the app script insertion point in index.html")
-    return html.replace(script_tag, f"{bridge}\\n{script_tag}", 1)
+    return html.replace(script_tag, f"{catalog_bootstrap}\\n{script_tag}", 1)
 
 
 def main() -> None:
