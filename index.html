@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#101619">
+  <meta name="theme-color" content="#050b12">
   <title>Outer Rim Character Ledger</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap');
@@ -21,18 +21,312 @@
     @media(max-width:980px){.stats-sheet-grid{grid-template-columns:1fr}.feat-library-list{max-height:500px}}
     #catalogDialog,#equipmentDialog{width:min(980px,calc(100vw - 28px));max-height:calc(100vh - 36px);overflow:auto}#levelUpDialog,#builderDialog{width:min(760px,calc(100vw - 28px));max-height:calc(100vh - 36px);overflow:auto}.levelup-options{max-height:35vh;overflow:auto;border:1px solid var(--line);border-radius:4px;padding:0 12px}.builder-step{display:grid;gap:12px}.builder-progress{font:10px var(--mono);color:var(--muted)}.builder-choice{display:grid;grid-template-columns:1fr 1fr;gap:10px}.builder-choice button{min-height:110px;text-align:left;padding:16px}.builder-abilities{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.builder-skills{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}.builder-skill{display:flex;align-items:center;gap:8px;padding:8px;border:1px solid var(--line);border-radius:3px;font-size:12px}.builder-head{display:flex;justify-content:space-between;align-items:center;gap:12px}.catalog-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:14px}.catalog-filters{display:grid;grid-template-columns:repeat(4,minmax(120px,1fr));gap:8px;margin-bottom:12px}.catalog-filters .field{min-width:0}.catalog-eligibility-filter{display:flex;align-items:center;gap:7px;color:var(--muted);font:10px var(--mono)}.catalog-entries{max-height:45vh;overflow:auto;border:1px solid var(--line);border-radius:4px;padding:0 12px}.catalog-entry.unavailable{opacity:.52}.catalog-entry.unavailable .row-title{color:var(--muted)}.catalog-entry .row-sub{max-width:640px}.catalog-entry-actions{display:flex;gap:6px;align-items:center}.catalog-count{font:10px var(--mono);color:var(--muted);margin:7px 0}.custom-catalog-form{border-top:1px solid var(--line);margin-top:14px;padding-top:12px}.custom-catalog-form summary{cursor:pointer;color:var(--teal);font-size:12px;font-weight:700}.custom-catalog-form form{margin-top:12px}.selected-options{color:var(--muted);font:10px var(--mono)}.rule-tooltip{position:fixed;z-index:30;width:min(360px,calc(100vw - 24px));padding:10px 12px;background:#0d1416;border:1px solid #536a65;border-radius:4px;box-shadow:0 8px 26px #0009;pointer-events:none;color:var(--ink)}.rule-tooltip-main{font-size:12px;line-height:1.45}.rule-tooltip-book,.rule-tooltip-options{display:block;color:var(--muted);font:10px var(--mono);margin-top:5px}
     @media(max-width:720px){.catalog-filters{grid-template-columns:repeat(2,minmax(0,1fr))}.catalog-entry-actions{flex-direction:column;align-items:flex-end}.builder-choice,.builder-skills{grid-template-columns:1fr}.builder-abilities{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    #archiveDialog{width:min(1040px,calc(100vw - 28px));max-height:calc(100vh - 36px);overflow:auto}.archive-toolbar{display:grid;grid-template-columns:minmax(220px,2fr) minmax(140px,1fr) minmax(150px,1fr);gap:10px;margin-bottom:12px}.archive-actions{margin:10px 0 8px}.archive-entries{max-height:50vh;overflow:auto;border:1px solid var(--line);border-radius:4px;padding:0 12px}.archive-row{align-items:flex-start;gap:12px}.archive-row-main{flex:1;min-width:0}.archive-row-main .row-title{overflow-wrap:anywhere}.archive-row-actions{display:flex;align-items:center;gap:6px;flex-wrap:wrap;justify-content:flex-end}.archive-folder-select{width:125px;background:#11181b;border:1px solid var(--line);border-radius:3px;color:var(--ink);padding:6px;font-size:10px}.archive-lock{color:var(--amber);font:10px var(--mono)}@media(max-width:700px){.archive-toolbar{grid-template-columns:1fr 1fr}.archive-toolbar .field:first-child{grid-column:1/-1}.archive-row-actions{width:100%;justify-content:flex-start}.archive-entries{max-height:55vh}}
+    :root {
+      --bg: #050b12;
+      --panel: #091522;
+      --panel-2: #0c1c2d;
+      --line: #153753;
+      --muted: #7793a9;
+      --ink: #e3f4ff;
+      --teal: #53d9ff;
+      --amber: #ffcb75;
+      --red: #ff6579;
+      --shadow: 0 16px 42px #0009, 0 0 24px #087cb011;
+      --sans: 'Manrope', ui-sans-serif, system-ui, sans-serif;
+      --mono: 'DM Mono', ui-monospace, monospace;
+    }
+
+    body {
+      background:
+        radial-gradient(ellipse at 82% 4%, #07528a30 0, transparent 34%),
+        radial-gradient(ellipse at 12% 66%, #007b7620 0, transparent 32%),
+        var(--bg);
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      opacity: .24;
+      background-image:
+        linear-gradient(#1b5b7922 1px, transparent 1px),
+        linear-gradient(90deg, #1b5b7922 1px, transparent 1px);
+      background-size: 44px 44px;
+      mask-image: linear-gradient(to bottom, #000 0%, transparent 85%);
+    }
+
+    .app {
+      position: relative;
+      z-index: 1;
+    }
+
+    .sidebar {
+      background: #030911ed;
+      border-right-color: #164563;
+      box-shadow: 12px 0 42px #0004;
+    }
+
+    .brand-mark {
+      border-radius: 4px;
+      color: #b7f4ff;
+      background: #0b2740;
+      box-shadow: inset 0 0 16px #36cfff22, 0 0 20px #28c6ff32;
+    }
+
+    .brand-name,
+    .heading h1,
+    .section-head h2 {
+      letter-spacing: .045em;
+    }
+
+    .brand-name {
+      color: #e5f7ff;
+    }
+
+    .char-choice {
+      border-radius: 2px;
+    }
+
+    .char-choice:hover,
+    .char-choice.active {
+      background: linear-gradient(90deg, #0d2b43, #0a1a29);
+      border-color: #1d668c;
+      box-shadow: inset 2px 0 var(--teal), 0 0 18px #00aaff12;
+    }
+
+    .avatar {
+      border-radius: 3px;
+      background: #103653;
+      color: #8deaff;
+    }
+
+    .new-char {
+      border-color: #1f6384;
+      border-radius: 2px;
+      background: #06121d;
+    }
+
+    .topline {
+      border-bottom-color: #19415a;
+    }
+
+    .button {
+      border-radius: 2px;
+      background: linear-gradient(145deg, #0e2030, #091522);
+      border-color: #1d4864;
+      transition: border-color .16s ease, box-shadow .16s ease, background .16s ease, transform .16s ease;
+    }
+
+    .button:hover {
+      border-color: var(--teal);
+      box-shadow: 0 0 16px #24c8ff24;
+      transform: translateY(-1px);
+    }
+
+    .button.primary {
+      color: #03111a;
+      background: linear-gradient(135deg, #74edff, #35b8ed);
+      border-color: #82efff;
+      box-shadow: 0 0 20px #28cfff2b;
+    }
+
+    .button.primary:hover {
+      background: linear-gradient(135deg, #a5f5ff, #54d0ff);
+      box-shadow: 0 0 24px #28cfff55;
+    }
+
+    .heading {
+      border-bottom: 1px solid #12334a;
+    }
+
+    .heading h1 {
+      text-transform: uppercase;
+      text-shadow: 0 0 26px #23bfff24;
+    }
+
+    .level-pill {
+      border-left-color: #1d4864;
+    }
+
+    .quick-stat,
+    .panel {
+      position: relative;
+      overflow: hidden;
+      border-radius: 2px;
+      border-color: #16405b;
+      background: linear-gradient(145deg, #0b1c2b, #07111c 76%);
+      box-shadow: inset 0 1px #8be8ff0b, var(--shadow);
+    }
+
+    .quick-stat::before,
+    .panel::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 38px;
+      height: 2px;
+      background: var(--teal);
+      box-shadow: 0 0 12px #42d9ff;
+    }
+
+    .quick-stat::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 26px;
+      height: 26px;
+      border-top: 1px solid #36bce966;
+      border-right: 1px solid #36bce966;
+    }
+
+    .quick-stat label,
+    .ability label,
+    .defense label,
+    .field label {
+      letter-spacing: .09em;
+    }
+
+    .quick-stat strong {
+      color: #c9f5ff;
+      text-shadow: 0 0 16px #2bcfff3b;
+    }
+
+    .tabs {
+      border-bottom-color: #16405b;
+    }
+
+    .tab {
+      border-radius: 2px 2px 0 0;
+      transition: color .15s ease, background .15s ease;
+    }
+
+    .tab.active {
+      background: linear-gradient(180deg, #0b2638, transparent);
+      text-shadow: 0 0 12px #42d9ff66;
+    }
+
+    .ability,
+    .defense {
+      border: 1px solid #16405b;
+      border-radius: 2px;
+      background: linear-gradient(145deg, #0d2233, #091522);
+    }
+
+    .ability strong,
+    .defense strong {
+      color: #e0f6ff;
+      text-shadow: 0 0 14px #2bcfff30;
+    }
+
+    .list-row {
+      border-bottom-color: #143247;
+    }
+
+    .tag {
+      border-radius: 2px;
+      border-color: #1b6685;
+      background: #082033;
+      box-shadow: inset 0 0 12px #1ac8ff0c;
+    }
+
+    .tag.amber {
+      border-color: #725936;
+      background: #241b0d;
+    }
+
+    .tag.gray {
+      background: #101b25;
+    }
+
+    .meter {
+      background: #122b3d;
+    }
+
+    .meter span {
+      background: linear-gradient(90deg, #16aeda, #65efff);
+      box-shadow: 0 0 10px #27cfff88;
+    }
+
+    .field input,
+    .field select,
+    .field textarea,
+    .archive-folder-select {
+      border-radius: 2px;
+      background: #040c14;
+      border-color: #1a4966;
+    }
+
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus {
+      border-color: var(--teal);
+      box-shadow: 0 0 0 2px #37caff20, 0 0 16px #22bfff18;
+    }
+
+    .table-wrap {
+      border-radius: 2px;
+      border-color: #16405b;
+    }
+
+    .data-table th {
+      background: #0d2030;
+    }
+
+    .data-table th,
+    .data-table td {
+      border-bottom-color: #143247;
+    }
+
+    dialog {
+      border-radius: 3px;
+      border-color: #1d668c;
+      background: linear-gradient(150deg, #0b1c2b, #050c14 78%);
+      box-shadow: 0 24px 80px #000c, 0 0 36px #078acb20;
+    }
+
+    dialog::backdrop {
+      background: #02070dd9;
+    }
+
+    .archive-entries,
+    .catalog-entries,
+    .levelup-options {
+      border-color: #16405b;
+      border-radius: 2px;
+      background: #050d16;
+    }
+
+    .toast {
+      color: #03111a;
+      background: #8beeff;
+      box-shadow: 0 0 24px #29cfff55, var(--shadow);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+      }
+    }
   </style>
 </head>
 <body>
   <div class="app">
     <aside class="sidebar">
       <div class="brand"><div class="brand-mark">S</div><div><div class="brand-name">SAGA LEDGER</div><div class="brand-sub">OUTER RIM ARCHIVE</div></div></div>
-      <div style="width:100%"><div class="eyebrow side-label">Your roster</div><div id="characterList" class="character-list"></div><button class="new-char" id="newCharacterButton"><span>＋ New character</span><b class="mobile-plus">＋</b></button></div>
+      <div style="width:100%"><div class="eyebrow side-label">Your roster</div><div id="characterList" class="character-list"></div><button class="new-char" id="newCharacterButton"><span>＋ New character</span><b class="mobile-plus">＋</b></button><button class="button ghost" id="manageArchiveButton" style="width:100%;margin-top:7px">Manage archive</button></div>
       <div class="side-bottom"><div class="profile"><i class="profile-dot"></i><div><div class="profile-name" id="profileName">Local pilot</div><div class="profile-note">Saved on this device</div></div></div><button class="text-button" id="switchProfile">Switch local profile</button></div>
     </aside>
     <main>
-      <div class="topline"><div class="crumb">CHARACTER ARCHIVE <span style="color:var(--teal)">/</span> <span id="crumbName">KIRA VENN</span></div><div class="top-actions"><button class="button ghost" id="exportCharacter">↓ Export JSON</button><button class="button primary" id="saveCharacter">Save changes</button></div></div>
-      <header class="heading"><div><div class="eyebrow" id="characterType">HUMAN · SCOUNDREL</div><h1 id="characterNameHeading">Kira Venn</h1><div class="subtitle" id="characterSubline">Independent courier · Outer Rim Territories</div></div><div class="actions"><div class="level-pill"><strong id="levelDisplay">LVL 3</strong><span>Heroic level</span></div><button id="levelUpButton" class="button primary">Level up</button></div></header>
+      <div class="topline"><div class="crumb">CHARACTER ARCHIVE <span style="color:var(--teal)">/</span> <span id="crumbName">EMPTY ARCHIVE</span></div><div class="top-actions"><button class="button ghost" id="exportCharacter" disabled>↓ Export JSON</button><button class="button primary" id="saveCharacter" disabled>Save changes</button></div></div>
+      <header class="heading"><div><div class="eyebrow" id="characterType">LOCAL ARCHIVE</div><h1 id="characterNameHeading">No characters yet</h1><div class="subtitle" id="characterSubline">Create a character to begin your archive.</div></div><div class="actions"><div class="level-pill"><strong id="levelDisplay">—</strong><span>Heroic level</span></div><button id="levelUpButton" class="button primary" disabled>Level up</button></div></header>
       <section id="quickStats" class="quick-grid"></section>
       <nav class="tabs" id="tabs" aria-label="Character sections"></nav>
       <section id="view"></section>
@@ -45,11 +339,15 @@
   <dialog id="homebrewDialog"><form id="homebrewForm"><h2>Add homebrew</h2><p>Add a custom rules item to this browser's shared homebrew library.</p><div class="modal-fields"><div class="field"><label for="brewType">Category</label><select id="brewType"><option>Class</option><option>Feat</option><option>Talent</option><option>Ability</option><option>Equipment</option><option>Armor</option><option>Weapon</option></select></div><div class="field"><label for="brewName">Name</label><input id="brewName" required maxlength="80"></div><div class="field"><label for="brewDescription">Description</label><textarea id="brewDescription" maxlength="1000"></textarea></div></div><div class="dialog-actions"><button class="button" type="button" data-close="homebrewDialog">Cancel</button><button class="button primary" type="submit">Add to library</button></div></form></dialog>
   <dialog id="featChoiceDialog"><form id="featChoiceForm" class="modal-fields"></form></dialog>
   <dialog id="deleteCharacterDialog"><h2>Delete character?</h2><p id="deleteCharacterMessage"></p><div class="dialog-actions"><button class="button" type="button" id="cancelDeleteCharacter">Cancel</button><button class="button primary" type="button" id="confirmDeleteCharacter">Delete character</button></div></dialog>
+  <dialog id="archiveDialog"><div class="catalog-head"><div><div class="eyebrow">LOCAL ARCHIVE</div><h2>Manage archive</h2><p class="muted">Search, organize, and manage characters, NPCs, and ships.</p></div><button class="button" type="button" data-close-archive aria-label="Close archive manager">×</button></div><div class="archive-toolbar"><div class="field"><label for="archiveSearch">Search archive</label><input id="archiveSearch" type="search" placeholder="Name, species, class, model"></div><div class="field"><label for="archiveType">Type</label><select id="archiveType"><option value="all">All items</option><option value="character">Characters</option><option value="npc">NPCs</option><option value="ship">Ships</option></select></div><div class="field"><label for="archiveFolder">Folder</label><select id="archiveFolder"><option value="all">All folders</option></select></div></div><div class="actions archive-actions"><button class="button primary" id="newArchiveCharacter">＋ Character</button><button class="button" id="newArchiveFolder">＋ Folder</button><button class="button danger" id="deleteArchiveFolder">Delete folder</button><button class="button" id="newArchiveNpc">＋ NPC</button><button class="button" id="newHeroicNpc">＋ Heroic NPC</button><button class="button" id="newArchiveShip">＋ Ship</button><label class="upload-label">↑ Import JSON<input id="archiveImportFile" type="file" accept=".json,application/json"></label><button class="button" id="exportArchive">↓ Export archive</button></div><div id="archiveCount" class="catalog-count"></div><div id="archiveEntries" class="archive-entries"></div></dialog>
+  <dialog id="npcDialog"><form id="npcForm"><h2>New NPC</h2><p>Record a non-heroic NPC in the archive.</p><div class="form-grid"><div class="field"><label>Name</label><input name="name" required maxlength="60"></div><div class="field"><label>Species</label><input name="species" value="Human"></div><div class="field"><label>Role</label><input name="role" placeholder="Contact, rival, ally"></div><div class="field"><label>Level</label><input name="level" type="number" min="1" value="1"></div><div class="field"><label>HP</label><input name="hp" type="number" min="0" value="10"></div><div class="field"><label>Location</label><input name="location"></div><div class="field full"><label>Notes</label><textarea name="notes"></textarea></div></div><div class="dialog-actions"><button class="button" type="button" data-close="npcDialog">Cancel</button><button class="button primary" type="submit">Create NPC</button></div></form></dialog>
+  <dialog id="shipDialog"><form id="shipForm"><h2>New ship</h2><p>Add a vessel to the archive using Saga ship statistics.</p><div class="form-grid"><div class="field"><label>Name</label><input name="name" required maxlength="60"></div><div class="field"><label>Model / class</label><input name="model" placeholder="YT-1300 light freighter"></div><div class="field"><label>Size</label><select name="size"><option>Colossal</option><option>Colossal (frigate)</option><option>Colossal (cruiser)</option><option>Gargantuan</option><option>Huge</option><option>Large</option><option>Medium</option></select></div><div class="field"><label>Role</label><input name="role" placeholder="Transport, fighter"></div><div class="field"><label>Initiative</label><input name="initiative" type="number" value="0"></div><div class="field"><label>Maneuver</label><input name="maneuver" type="number" value="0"></div><div class="field"><label>Speed</label><input name="speed" placeholder="e.g. 16 squares"></div><div class="field"><label>HP</label><input name="hp" type="number" min="0" value="0"></div><div class="field"><label>DR</label><input name="damageReduction" type="number" min="0" value="0"></div><div class="field"><label>Shield Rating</label><input name="shieldRating" type="number" min="0" value="0"></div><div class="field"><label>Reflex Defense</label><input name="reflexDefense" type="number" min="0" value="10"></div><div class="field"><label>Crew</label><input name="crew"></div><div class="field full"><label>Weapons / systems</label><textarea name="weapons" placeholder="Weapon name, attack, damage"></textarea></div><div class="field full"><label>Notes</label><textarea name="notes"></textarea></div></div><div class="dialog-actions"><button class="button" type="button" data-close="shipDialog">Cancel</button><button class="button primary" type="submit">Create ship</button></div></form></dialog>
   <dialog id="catalogDialog"><div class="catalog-head"><div><div class="eyebrow" id="catalogTypeLabel">CHARACTER OPTIONS</div><h2 id="catalogTitle">Add feat</h2><p class="muted" id="catalogDescription"></p></div><button class="button" type="button" data-close-catalog aria-label="Close catalog">×</button></div><div id="catalogContent"></div></dialog>
   <dialog id="equipmentDialog"><div class="catalog-head"><div><div class="eyebrow" id="equipmentTypeLabel">EQUIPMENT</div><h2 id="equipmentTitle">Add equipment</h2><p class="muted" id="equipmentDescription"></p></div><button class="button" type="button" data-close-equipment aria-label="Close equipment catalog">×</button></div><div id="equipmentContent"></div></dialog>
   <dialog id="levelUpDialog"><div class="catalog-head"><div><div class="eyebrow">LEVEL ADVANCEMENT</div><h2 id="levelUpTitle">Level up</h2><p class="muted" id="levelUpDescription"></p></div><button class="button" type="button" data-close-levelup aria-label="Close level-up menu">×</button></div><form id="levelUpForm"></form></dialog>
   <div id="ruleTooltip" class="rule-tooltip" role="tooltip" hidden></div>
   <input id="importFile" type="file" accept=".json,application/json" hidden>
+  <input id="archiveCharacterImport" type="file" accept=".json,application/json" hidden>
   <script>
     const STORAGE_KEY='saga-ledger-v1';
     const tabs=[['overview','Overview'],['details','Details'],['stats','Stats'],['inventory','Inventory'],['attacks','Attacks'],['ships','Ships'],['companions','Companions'],['homebrew','Homebrew']];
@@ -94,22 +392,36 @@
       {name:'Wotan Weave',type:'N/A',action:'Swift Action',description:'Fly in a corkscrew, continuing forward while making the ship difficult to hit.'}
     ];
     const starter={name:'Blanc shet',species:'Human',class:'Scoundrel',level:3,abilities:{STR:10,DEX:10,CON:10,INT:10,WIS:10,CHA:10},hp:21,maxHp:21,xp:3000,credits:850,age:'27',height:'1.68 m',background:'A courier who knows the forgotten lanes between settled systems.',languages:'Basic, Huttese',alignment:'Independent',notes:'Keeps a second navicomputer for the routes she does not discuss.',skills:[{name:'Pilot',bonus:8,trained:true},{name:'Stealth',bonus:8,trained:true},{name:'Deception',bonus:7,trained:true},{name:'Perception',bonus:3,trained:false}],feats:[{name:'Point Blank Shot',kind:'Feat'},{name:'Vehicular Combat',kind:'Feat'}],talents:[{name:'Lucky',kind:'Talent'}],inventory:[{name:'Blaster pistol',qty:1,weight:1},{name:'Comlink',qty:1,weight:0.1},{name:'Utility belt',qty:1,weight:2}],weapons:[{name:'Blaster pistol',damage:'3d6',attackBonus:6,crit:20,type:'Energy'}],ships:[{name:'Wayward Star',type:'YT-1300 light freighter',role:'Transport',notes:'Modified hyperdrive'}],companions:[{name:'Pip',species:'BD-series droid',role:'Astromech',notes:'Reliable, opinionated'}]};
-    let state=loadState(),activeTab='overview',lastRoll='',lastSkillRoll=null,pendingFeat=null,pendingLevelUp=null,lastLevelUpSummary=null,activeCatalogType='feat',activeCatalogEntries=[],equipmentCatalog=[],equipmentCatalogLoaded=false,equipmentCatalogError='',activeEquipmentType='Weapon',activeEquipmentEntries=[],bundledFeats=[],bundledTalents=[],bundledTalentTrees=[],bundledFeatsComplete=false,bundledTalentsComplete=false,catalogLoadErrors={},catalogLoading={feat:true,talent:true},pointBuyMode=false;
+    let state=loadState(),activeTab='overview',lastRoll='',lastSkillRoll=null,pendingFeat=null,pendingLevelUp=null,lastLevelUpSummary=null,activeCatalogType='feat',activeCatalogEntries=[],activeArchiveItems=[],pendingArchiveDelete=null,pendingShipOwner=null,equipmentCatalog=[],equipmentCatalogLoaded=false,equipmentCatalogError='',activeEquipmentType='Weapon',activeEquipmentEntries=[],bundledFeats=[],bundledTalents=[],bundledTalentTrees=[],bundledFeatsComplete=false,bundledTalentsComplete=false,catalogLoadErrors={},catalogLoading={feat:true,talent:true},pointBuyMode=false;
     const $=s=>document.querySelector(s),esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
     async function fetchCatalogJson(url){const filename=String(url).split(/[?#]/,1)[0].split('/').pop(),catalogs=window.__SAGA_CATALOGS__;if(catalogs&&Object.prototype.hasOwnProperty.call(catalogs,filename))return catalogs[filename];const response=await window.fetch(url);if(!response.ok)throw new Error(`Catalog request failed (${response.status})`);return response.json()}
+    function isLegacyDemoCharacter(character){const demoNames=['Blanc shet','Kira Venn'];return demoNames.includes(character.name)&&character.background===starter.background&&character.notes===starter.notes&&character.species===starter.species&&character.class==='Scoundrel'&&Number(character.level)===3&&Number(character.xp)===3000&&Number(character.credits)===850&&character.ships?.some(ship=>ship.name==='Wayward Star')&&character.companions?.some(companion=>companion.name==='Pip')}
+    function recoverSavedArchive(){for(let index=0;index<localStorage.length;index++){const key=localStorage.key(index);if(!key||key===STORAGE_KEY)continue;try{const value=JSON.parse(localStorage.getItem(key)),archive=Array.isArray(value)?{characters:value}:value;if(archive&&Array.isArray(archive.characters)&&archive.characters.some(character=>character&&typeof character.name==='string'&&character.name.trim()&&(character.abilities||character.species||character.class))){console.info(`Recovered a character archive from local storage key "${key}".`);return archive}}catch(error){}}return null}
     function loadState(){
-      const raw=localStorage.getItem(STORAGE_KEY);
-      if(raw===null)return {profile:'',characters:[normalizeCharacter(starter)],homebrew:[],selected:0};
+      let raw=localStorage.getItem(STORAGE_KEY);
+      if(raw===null){const recovered=recoverSavedArchive();if(!recovered)return {profile:'',characters:[],npcs:[],ships:[],folders:[],homebrew:[],selected:0};raw=JSON.stringify(recovered);localStorage.setItem(STORAGE_KEY,raw)}
       let saved;
-      try{saved=JSON.parse(raw)}catch(error){console.error('Could not read the saved character archive; existing browser data was left untouched.',error);return {profile:'',characters:[normalizeCharacter(starter)],homebrew:[],selected:0}}
-      if(!saved||!Array.isArray(saved.characters)){console.error('Saved character archive has an invalid format; existing browser data was left untouched.');return {profile:'',characters:[normalizeCharacter(starter)],homebrew:[],selected:0}}
+      try{saved=JSON.parse(raw)}catch(error){console.error('Could not read the saved character archive; existing browser data was left untouched.',error);return {profile:'',characters:[],npcs:[],ships:[],folders:[],homebrew:[],selected:0}}
+      if(!saved||!Array.isArray(saved.characters)){console.error('Saved character archive has an invalid format; existing browser data was left untouched.');return {profile:'',characters:[],npcs:[],ships:[],folders:[],homebrew:[],selected:0}}
+      let recoveredArchive=false;
+      if(!saved.characters.length){const recovered=recoverSavedArchive();if(recovered){saved={...recovered,profile:saved.profile||recovered.profile};recoveredArchive=true}}
       const characters=saved.characters.filter(character=>character&&typeof character==='object'&&typeof character.name==='string'&&character.name.trim());
       if(characters.length!==saved.characters.length)console.error('Some invalid character records were skipped while loading the saved archive.');
-      const normalized=characters.map(normalizeCharacter);
-      return {...saved,characters:normalized,homebrew:Array.isArray(saved.homebrew)?saved.homebrew:[],selected:Math.max(0,Math.min(Number.isInteger(Number(saved.selected))?Number(saved.selected):0,Math.max(0,normalized.length-1)))}
+      const normalized=characters.map(normalizeCharacter),oldSelected=Number.isInteger(Number(saved.selected))?Number(saved.selected):0,selectedCharacter=normalized[oldSelected],kept=normalized.filter(character=>!isLegacyDemoCharacter(character)),removedDemo=kept.length!==normalized.length,selected=selectedCharacter&&!isLegacyDemoCharacter(selectedCharacter)?Math.max(0,kept.indexOf(selectedCharacter)):0,result={...saved,characters:kept,npcs:Array.isArray(saved.npcs)?saved.npcs:[],ships:Array.isArray(saved.ships)?saved.ships:[],folders:Array.isArray(saved.folders)?saved.folders.map(folder=>typeof folder==='string'?folder:folder?.name).filter(Boolean):[],homebrew:Array.isArray(saved.homebrew)?saved.homebrew:[],selected:Math.max(0,Math.min(selected,Math.max(0,kept.length-1)))};
+      if(removedDemo||recoveredArchive)localStorage.setItem(STORAGE_KEY,JSON.stringify(result));
+      return result
     }
     function persist(){localStorage.setItem(STORAGE_KEY,JSON.stringify(state))}
     function current(){return state.characters[state.selected]||state.characters[0]}
+    function archiveEntities(){const items=[];state.characters.forEach((character,index)=>items.push({type:character.recordType==='heroicNPC'?'npc':'character',kind:'character',index,item:character,name:character.name,folderId:character.folderId||'',locked:!!character.locked,summary:[character.species,character.class,`Level ${character.level}`,character.recordType==='heroicNPC'?'Heroic NPC':''].filter(Boolean).join(' · ')}));state.npcs.forEach((item,index)=>items.push({type:'npc',kind:'npc',index,item,name:item.name,folderId:item.folderId||'',locked:!!item.locked,summary:[item.species,item.role,item.location].filter(Boolean).join(' · ')}));state.ships.forEach((item,index)=>items.push({type:'ship',kind:'ship',index,item,name:item.name,folderId:item.folderId||'',locked:!!item.locked,summary:[item.model||item.type,item.size,item.role].filter(Boolean).join(' · ')}));state.characters.forEach((character,characterIndex)=>(character.ships||[]).forEach((item,index)=>items.push({type:'ship',kind:'characterShip',index,characterIndex,owner:character.name,item,name:item.name,folderId:item.folderId||character.folderId||'',locked:!!item.locked||!!character.locked,summary:[item.model||item.type,item.size,item.role,`On ${character.name}`].filter(Boolean).join(' · ')})));return items}
+    function renderArchiveManager(){const search=($('#archiveSearch')?.value||'').trim().toLowerCase(),type=$('#archiveType')?.value||'all',folder=$('#archiveFolder')?.value??'all',folders=state.folders||[];$('#archiveFolder').innerHTML='<option value="all">All folders</option><option value="">Unfiled</option>'+folders.map(name=>`<option value="${esc(name)}">${esc(name)}</option>`).join('');$('#archiveFolder').value=folder;activeArchiveItems=archiveEntities().filter(entry=>(type==='all'||entry.type===type)&&(folder==='all'||entry.folderId===folder)&&(!search||`${entry.name} ${entry.summary} ${entry.type}`.toLowerCase().includes(search))).sort((a,b)=>a.name.localeCompare(b.name));$('#archiveCount').textContent=`${activeArchiveItems.length} items`;$('#archiveEntries').innerHTML=activeArchiveItems.map((entry,index)=>`<div class="list-row archive-row"><div class="archive-row-main"><div class="row-title">${esc(entry.name)}${entry.locked?' <span class="archive-lock">LOCKED</span>':''}</div><div class="row-sub">${esc(entry.type.toUpperCase())}${entry.summary?` · ${esc(entry.summary)}`:''}</div></div><div class="archive-row-actions"><select class="archive-folder-select" data-archive-folder="${index}" aria-label="Move ${esc(entry.name)} to folder"><option value="">Unfiled</option>${folders.map(name=>`<option value="${esc(name)}" ${entry.folderId===name?'selected':''}>${esc(name)}</option>`).join('')}</select>${entry.kind==='character'?`<button class="button" data-archive-action="open" data-archive-index="${index}">Open</button>`:''}<button class="button" data-archive-action="duplicate" data-archive-index="${index}">Duplicate</button><button class="button" data-archive-action="lock" data-archive-index="${index}">${entry.locked?'Unlock':'Lock'}</button><button class="button ghost" data-archive-action="export" data-archive-index="${index}">Export JSON</button><button class="button danger" data-archive-action="delete" data-archive-index="${index}">Delete</button></div></div>`).join('')||'<div class="empty">No archive items match this search.</div>';$('#deleteArchiveFolder').disabled=!folders.length}
+    function openArchiveManager(){renderArchiveManager();$('#archiveDialog').showModal()}
+    function archiveEntryTarget(entry){if(entry.kind==='character')return state.characters[entry.index];if(entry.kind==='npc')return state.npcs[entry.index];if(entry.kind==='ship')return state.ships[entry.index];return state.characters[entry.characterIndex]?.ships?.[entry.index]}
+    function duplicateArchiveEntry(entry){const copy=structuredClone(entry.item);copy.name=`${copy.name} (copy)`;copy.locked=false;if(entry.kind==='character'){state.characters.push(normalizeCharacter(copy));state.selected=state.characters.length-1}else if(entry.kind==='npc')state.npcs.push(copy);else if(entry.kind==='ship')state.ships.push(copy);else state.characters[entry.characterIndex].ships.push(copy);persist();render();renderArchiveManager();toast(`${copy.name} duplicated`)}
+    function moveArchiveEntry(entry,folderId){const item=archiveEntryTarget(entry);if(!item)return;item.folderId=folderId;persist();renderArchiveManager()}
+    function exportArchiveEntry(entry){const item=archiveEntryTarget(entry);if(item)download(`${item.name.toLowerCase().replace(/[^a-z0-9]+/g,'-')||entry.type}.json`,{format:`saga-ledger-${entry.type}`,version:1,[entry.type]:item})}
+    function removeArchiveEntry(entry){if(entry.kind==='character'){const index=state.characters.indexOf(entry.item);if(index<0)return;state.characters.splice(index,1);if(!state.characters.length)state.selected=0;else if(state.selected===index)state.selected=Math.min(index,state.characters.length-1);else if(state.selected>index)state.selected--}else if(entry.kind==='npc'){const index=state.npcs.indexOf(entry.item);if(index>=0)state.npcs.splice(index,1)}else if(entry.kind==='ship'){const index=state.ships.indexOf(entry.item);if(index>=0)state.ships.splice(index,1)}else{const owner=state.characters[entry.characterIndex],index=owner?.ships?.indexOf(entry.item);if(index>=0)owner.ships.splice(index,1)}persist();render();renderArchiveManager();toast(`${entry.name} deleted`)}
+    function deleteArchiveFolder(){const folder=$('#archiveFolder').value;if(!folder||folder==='all')return toast('Select a folder first');if(!window.confirm(`Delete folder "${folder}"? Its items will be moved to Unfiled.`))return;state.folders=state.folders.filter(name=>name!==folder);for(const item of [...state.characters,...state.npcs,...state.ships])if(item.folderId===folder)item.folderId='';for(const character of state.characters)for(const ship of character.ships||[])if(ship.folderId===folder)ship.folderId='';persist();renderArchiveManager();toast(`Folder ${folder} deleted`)}
     function modifier(score){return Math.floor((Number(score)-10)/2)}
     function modText(n){return n>=0?`+${n}`:`${n}`}
     function skillTrained(c,s){return !!s.trained||c.feats.some(f=>f.effect==='skillTraining'&&f.skill===s.name)}
@@ -125,12 +437,12 @@
     function save(){persist();render();toast('Saved to this browser')}
     function render(){
       renderRoster();
-      if(!state.profile){$('#profileDialog').showModal();$('#profileInput').value='';return}
-      $('#profileName').textContent=state.profile;
+      if(!state.profile&&state.characters.length){state.profile='Local pilot';persist()}
+      $('#profileName').textContent=state.profile||'Local pilot';
       const hasCharacter=state.characters.length>0;
-      $('#saveCharacter').disabled=!hasCharacter;
+      $('#saveCharacter').disabled=!hasCharacter||!!current()?.locked;
       $('#exportCharacter').disabled=!hasCharacter;
-      $('#levelUpButton').disabled=!hasCharacter;
+      $('#levelUpButton').disabled=!hasCharacter||!!current()?.locked;
       if(!hasCharacter){
         $('#crumbName').textContent='EMPTY ARCHIVE';
         $('#characterNameHeading').textContent='No characters yet';
@@ -140,20 +452,20 @@
         $('#quickStats').innerHTML='';
         $('#tabs').innerHTML='';
         $('#view').innerHTML='<div class="panel empty"><h2>Your archive is empty</h2><p>Use “New character” to create a character.</p></div>';
-        return;
+      }else{
+        const c=current();
+        $('#crumbName').textContent=c.name.toUpperCase();
+        $('#characterNameHeading').textContent=c.name;
+        $('#characterType').textContent=`${c.species.toUpperCase()} · ${c.class.toUpperCase()}`;
+        $('#characterSubline').textContent=`${c.background||'Independent operator'} · ${c.homeworld||'Outer Rim Territories'}`;
+        $('#levelDisplay').textContent=`LVL ${c.level}`;
+        renderQuick();renderTabs();renderView();
       }
-      const c=current();
-      $('#crumbName').textContent=c.name.toUpperCase();
-      $('#characterNameHeading').textContent=c.name;
-      $('#characterType').textContent=`${c.species.toUpperCase()} · ${c.class.toUpperCase()}`;
-      $('#characterSubline').textContent=`${c.background||'Independent operator'} · ${c.homeworld||'Outer Rim Territories'}`;
-      $('#levelDisplay').textContent=`LVL ${c.level}`;
-      renderQuick();renderTabs();renderView();
     }
-    function renderRoster(){const host=$('#characterList');host.innerHTML=state.characters.map((c,i)=>`<div class="roster-entry"><button class="char-choice ${i===state.selected?'active':''}" data-character="${i}" title="${esc(c.name)}"><span class="avatar">${esc(c.name.slice(0,1).toUpperCase())}</span><span class="char-label"><span class="char-small">${esc(c.name)}</span><br><span class="char-meta">${esc(c.species)} · Lv ${c.level}</span></span></button><button class="roster-delete" data-delete-character="${i}" title="Delete ${esc(c.name)}" aria-label="Delete ${esc(c.name)}">×</button></div>`).join('')}
+    function renderRoster(){const host=$('#characterList');host.innerHTML=state.characters.filter(c=>c.recordType!=='heroicNPC').map(c=>{const i=state.characters.indexOf(c);return `<button class="char-choice ${i===state.selected?'active':''}" data-character="${i}" title="${esc(c.name)}"><span class="avatar">${esc(c.name.slice(0,1).toUpperCase())}</span><span class="char-label"><span class="char-small">${esc(c.name)}</span><br><span class="char-meta">${esc(c.species)} · Lv ${c.level}</span></span></button>`}).join('')}
     function renderQuick(){const c=current(),vals=[['Hit points',`${c.hp}/${c.maxHp||maxHp(c)}`,'CURRENT / MAX'],['Fortitude',defense('Fortitude'),`CLASS ${modText((classes[c.class]||classes.Soldier).fort)}`],['Reflex',defense('Reflex'),`CLASS ${modText((classes[c.class]||classes.Soldier).ref)}`],['Will',defense('Will'),`CLASS ${modText((classes[c.class]||classes.Soldier).will)}`],['Credits',Number(c.credits||0).toLocaleString(),'AVAILABLE']];$('#quickStats').innerHTML=vals.map(x=>`<div class="quick-stat"><label>${x[0]}</label><strong>${esc(x[1])}</strong><small>${x[2]}</small></div>`).join('')}
     function renderTabs(){$('#tabs').innerHTML=tabs.map(([id,label])=>`<button class="tab ${activeTab===id?'active':''}" data-tab="${id}">${label}</button>`).join('')}
-    function renderView(){const c=current(),container=$('#view');const views={overview:overviewView,details:detailsView,stats:statsView,inventory:inventoryView,attacks:attacksView,ships:()=>collectionView('ships','Ship','Create ship'),companions:()=>collectionView('companions','Companion','Create companion'),homebrew:homebrewView};container.innerHTML=views[activeTab]();wireView()}
+    function renderView(){const c=current(),container=$('#view');const views={overview:overviewView,details:detailsView,stats:statsView,inventory:inventoryView,attacks:attacksView,ships:()=>collectionView('ships','Ship','Create ship'),companions:()=>collectionView('companions','Companion','Create companion'),homebrew:homebrewView};container.innerHTML=views[activeTab]();wireView();if(c.locked){container.insertAdjacentHTML('afterbegin','<div class="callout">Editing is locked. Unlock this character from Manage archive to make changes.</div>');container.querySelectorAll('input,select,textarea,button').forEach(control=>control.disabled=true)}}
     function overviewView(){const c=current();return `<div class="overview-grid"><div><div class="panel"><div class="section-head" style="margin-top:0"><div><h2>Ability scores</h2><p>Score and modifier</p></div><button class="button ghost" data-go="stats">Edit stats</button></div><div class="ability-grid">${characterAbilities(c).map(a=>`<div class="ability"><label>${a}</label><strong>${Number(c.abilities[a]||10)}</strong><small>${modText(modifier(c.abilities[a]||10))}</small></div>`).join('')}</div>${isDroid(c)?`<div class="callout">Droid · ${esc(c.droid?.degree||'2nd')}-Degree · ${esc(c.droid?.size||'Medium')} · no Constitution score</div>`:''}</div><div class="panel" style="margin-top:14px"><div class="section-head" style="margin-top:0"><div><h2>Skills</h2><p>${c.skills.length} skills · d20 + calculated modifier</p></div><button class="button ghost" data-go="stats">Edit skills</button></div><div class="skill-legend"><span><i class="legend-mark"></i>Trained</span><span><i class="legend-mark focus"></i>Skill Focus</span></div><div class="list">${c.skills.map((s,i)=>{const b=skillBreakdown(c,s),trained=skillTrained(c,s),focused=skillFocused(c,s),cls=trained&&focused?'skill-trained skill-focused':trained?'skill-trained':focused?'skill-focused':'';return `<div class="list-row ${cls}" title="${esc(`${b.level} half-level + ${b.abilityMod} ${b.ability} + ${b.trained} trained + ${b.focus} focus + ${b.misc} misc`)}"><div><div class="row-title">${esc(s.name)}</div><div class="row-sub">${esc(b.ability)}${trained?' · Trained':''}${focused?' · Skill Focus':''}${b.sizeBonus?` · +${b.sizeBonus} Small size`:''}</div>${lastSkillRoll&&lastSkillRoll.name===s.name?`<span class="skill-roll-result">${esc(lastSkillRoll.text)}</span>`:''}</div><div class="actions"><span class="tag">${modText(b.total)}</span><button class="button" data-roll-skill="${i}" aria-label="Roll ${esc(s.name)}">Roll</button></div></div>`}).join('')||'<div class="empty">No skills added.</div>'}</div></div></div><div><div class="panel"><div class="section-head" style="margin-top:0"><div><h2>Defenses</h2><p>Base 10 + heroic level + class + ability</p></div></div><div class="defense-list">${['Fortitude','Reflex','Will'].map(n=>`<div class="defense"><label>${n}</label><strong>${defense(n)}</strong><small>${n==='Fortitude'&&isDroid(c)?'Strength':n==='Fortitude'?'Constitution':n==='Reflex'?'Dexterity':'Wisdom'} based${n==='Reflex'&&isDroid(c)&&c.droid?.size==='Small'?' · +1 size':''}</small></div>`).join('')}</div><div class="callout">Saga Edition defense and hit point calculations are estimates from the entered class progression. Verify special bonuses and multiclass rules against your table.</div></div><div class="panel" style="margin-top:14px"><div class="section-head" style="margin-top:0"><div><h2>At a glance</h2><p>Current loadout</p></div></div><div class="list"><div class="list-row"><div><div class="row-title">${esc(c.weapons[0]?.name||'No weapon equipped')}</div><div class="row-sub">Primary weapon</div></div><span class="tag amber">${esc(c.weapons[0]?.damage||'—')}</span></div><div class="list-row"><div><div class="row-title">${c.feats.length+c.talents.length} features</div><div class="row-sub">Feats & talents</div></div><button class="button ghost" data-go="feats">Open</button></div><div class="list-row"><div><div class="row-title">${c.ships.length} ship · ${c.companions.length} companion</div><div class="row-sub">Crew and contacts</div></div><button class="button ghost" data-go="ships">Open</button></div></div></div></div></div>`}
     function detailsView(){const c=current();return `<div class="panel"><div class="section-head" style="margin-top:0"><div><h2>Character details</h2><p>Identity, history, and personal notes</p></div></div><div class="form-grid"><div class="field"><label>Name</label><input data-field="name" value="${esc(c.name)}"></div><div class="field"><label>Species</label><input data-field="species" value="${esc(c.species)}"></div><div class="field"><label>Class</label><select data-field="class">${Object.keys(classes).map(v=>`<option ${c.class===v?'selected':''}>${v}</option>`).join('')}</select></div><div class="field"><label>Heroic level</label><input data-field="level" type="number" min="1" max="20" value="${c.level}"></div><div class="field"><label>Age</label><input data-field="age" value="${esc(c.age||'')}"></div><div class="field"><label>Height</label><input data-field="height" value="${esc(c.height||'')}"></div><div class="field"><label>Homeworld</label><input data-field="homeworld" value="${esc(c.homeworld||'')}"></div><div class="field"><label>Languages</label><input data-field="languages" value="${esc(c.languages||'')}"></div><div class="field full"><label>Background</label><textarea data-field="background">${esc(c.background||'')}</textarea></div><div class="field full"><label>Notes</label><textarea data-field="notes">${esc(c.notes||'')}</textarea></div></div><div class="actions" style="margin-top:15px"><button class="button primary" data-save-fields>Save details</button></div></div>`}
     function pointCost(score){return ({8:0,9:1,10:2,11:3,12:4,13:5,14:6,15:8})[Number(score)]??Infinity}
@@ -205,7 +517,7 @@
     function homebrewView(){return `<div class="section-head" style="margin-top:0"><div><h2>Homebrew library</h2><p>Custom classes, feats, talents, abilities, equipment, and weapons</p></div><div class="actions"><label class="upload-label">↑ Import JSON<input id="brewImport" type="file" accept=".json,application/json"></label><button class="button" data-export-brew>↓ Export library</button><button class="button primary" data-new-brew>＋ Add entry</button></div></div><div class="panel"><div class="table-wrap"><table class="data-table"><thead><tr><th>Category</th><th>Name</th><th>Description</th><th></th></tr></thead><tbody>${state.homebrew.map((x,i)=>`<tr><td><span class="tag">${esc(x.type)}</span></td><td>${esc(x.name)}</td><td>${esc(x.description||'')}</td><td><button class="remove" data-remove-brew="${i}" aria-label="Remove ${esc(x.name)}">×</button></td></tr>`).join('')||'<tr><td colspan="4" class="empty">No homebrew entries yet. Imported entries are kept in this browser.</td></tr>'}</tbody></table></div><div class="notice">Use the JSON import/export tools to share homebrew with players and GMs. Imported content is data only and does not alter game calculations.</div></div>`}
     function wireView(){const c=current();document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>setTab(b.dataset.go));document.querySelector('[data-save-fields]')?.addEventListener('click',()=>{const oldClass=c.class,oldLevel=c.level;document.querySelectorAll('[data-field]').forEach(el=>{const k=el.dataset.field;c[k]=el.type==='number'?Number(el.value):el.value});if(!c.maxHpOverride&&(oldClass!==c.class||oldLevel!==c.level)){c.maxHp=maxHp(c);c.hp=Math.min(Number(c.hp)||0,c.maxHp)}save()});document.querySelectorAll('[data-field]').forEach(el=>el.addEventListener('change',()=>{const k=el.dataset.field;c[k]=el.type==='number'?Number(el.value):el.value;if(k==='maxHp')c.maxHpOverride=true;if(k==='credits')renderQuick()}));document.querySelectorAll('[data-ability]').forEach(el=>el.addEventListener('change',()=>{c.abilities[el.dataset.ability]=Number(el.value);if(!c.maxHpOverride){c.maxHp=maxHp(c);c.hp=Math.min(Number(c.hp)||0,c.maxHp)}renderQuick();renderView()}));document.querySelector('[data-roll-abilities]')?.addEventListener('click',()=>{pointBuyMode=false;const rolls=abilities.map(()=>{const dice=Array.from({length:4},()=>1+Math.floor(Math.random()*6)).sort((a,b)=>a-b);return dice.slice(1).reduce((a,b)=>a+b,0)});abilities.forEach((a,i)=>c.abilities[a]=rolls[i]);if(!c.maxHpOverride){c.maxHp=maxHp(c);c.hp=Math.min(Number(c.hp)||0,c.maxHp)}renderView();renderQuick();$('#abilityRollResult').style.display='block';$('#abilityRollResult').textContent=`Rolled scores: ${rolls.join(' · ')}. Scores applied; save to keep them.`});document.querySelector('[data-point-buy]')?.addEventListener('click',()=>{pointBuyMode=true;abilities.forEach(a=>c.abilities[a]=8);renderView();renderQuick();toast('25-point buy started at 8 in each ability')});document.querySelectorAll('[data-buy-score]').forEach(el=>el.onchange=()=>{const ability=el.dataset.buyScore,score=Number(el.value),spent=abilities.reduce((sum,a)=>sum+(a===ability?0:pointCost(c.abilities[a])),0)+pointCost(score);if(spent>25){el.value=c.abilities[ability];toast('That score would exceed 25 points');return}c.abilities[ability]=score;if(!c.maxHpOverride){c.maxHp=maxHp(c);c.hp=Math.min(Number(c.hp)||0,c.maxHp)}renderView();renderQuick()});document.querySelectorAll('[data-skill-name]').forEach(el=>el.onchange=()=>c.skills[el.dataset.skillName].name=el.value);document.querySelectorAll('[data-skill-bonus]').forEach(el=>el.onchange=()=>c.skills[el.dataset.skillBonus].bonus=Number(el.value));document.querySelectorAll('[data-skill-trained]').forEach(el=>el.onchange=()=>c.skills[el.dataset.skillTrained].trained=el.checked);document.querySelectorAll('[data-remove-skill]').forEach(el=>el.onclick=()=>{c.skills.splice(Number(el.dataset.removeSkill),1);renderView()});document.querySelector('[data-add-skill]')?.addEventListener('click',()=>{c.skills.push({name:'New skill',bonus:0,trained:false});renderView()});document.querySelector('[data-add-item]')?.addEventListener('click',()=>{const name=$('#itemName').value.trim();if(!name)return toast('Enter an item name');c.inventory.push({name,qty:Number($('#itemQty').value)||1,weight:Number($('#itemWeight').value)||0});renderView()});document.querySelectorAll('[data-remove-item]').forEach(el=>el.onclick=()=>{c.inventory.splice(Number(el.dataset.removeItem),1);renderView()});document.querySelector('[data-add-weapon]')?.addEventListener('click',()=>{const name=$('#weaponName').value.trim();if(!name)return toast('Enter a weapon name');c.weapons.push({name,damage:$('#weaponDamage').value.trim()||'1d4',attackBonus:Number($('#weaponBonus').value)||0,crit:20});renderView()});document.querySelectorAll('[data-remove-weapon]').forEach(el=>el.onclick=()=>{c.weapons.splice(Number(el.dataset.removeWeapon),1);renderView()});document.querySelectorAll('[data-attack]').forEach(el=>el.onclick=()=>{const w=c.weapons[el.dataset.attack],die=1+Math.floor(Math.random()*20),total=die+(Number(w.attackBonus)||0)+modifier(c.abilities.STR);lastRoll=`${w.name}: d20 ${die} + ${modText(Number(w.attackBonus)||0)} weapon bonus + ${modText(modifier(c.abilities.STR))} STR = ${total}`;renderView()});document.querySelectorAll('[data-damage]').forEach(el=>el.onclick=()=>{const w=c.weapons[el.dataset.damage],result=rollDice(w.damage);lastRoll=`${w.name} damage: ${w.damage} = ${result} damage`;renderView()});document.querySelector('[data-roll-check]')?.addEventListener('click',()=>{const d=1+Math.floor(Math.random()*20),bonus=Number($('#checkBonus').value)||0;lastRoll=`${$('#checkLabel').value||'Check'}: d20 ${d} + ${modText(bonus)} = ${d+bonus}`;renderView()});document.querySelectorAll('[data-add-feature]').forEach(el=>el.onclick=()=>{const key=el.dataset.addFeature,input=$(key==='feats'?'#featName':'#talentName');if(!input.value.trim())return toast('Enter a name');c[key].push({name:input.value.trim(),kind:key==='feats'?'Feat':'Talent'});renderView()});document.querySelectorAll('[data-remove-feature]').forEach(el=>el.onclick=()=>{const [key,index]=el.dataset.removeFeature.split(':');c[key].splice(Number(index),1);renderView()});document.querySelectorAll('[data-add-collection]').forEach(el=>el.onclick=()=>addCollection(el.dataset.addCollection));document.querySelectorAll('[data-remove-collection]').forEach(el=>el.onclick=()=>{const [key,index]=el.dataset.removeCollection.split(':');c[key].splice(Number(index),1);renderView()});document.querySelector('[data-new-brew]')?.addEventListener('click',()=>$('#homebrewDialog').showModal());document.querySelector('[data-export-brew]')?.addEventListener('click',()=>download('saga-homebrew.json',{format:'saga-ledger-homebrew',version:1,entries:state.homebrew}));document.querySelectorAll('[data-remove-brew]').forEach(el=>el.onclick=()=>{state.homebrew.splice(Number(el.dataset.removeBrew),1);renderView()});$('#brewImport')?.addEventListener('change',importHomebrew)}
     function rollDice(expression){const m=String(expression).trim().match(/^(\d{1,2})d(\d{1,3})(?:([+-])(\d+))?$/i);if(!m)return 'Invalid dice expression';const count=Math.min(20,Number(m[1])),sides=Number(m[2]);if(!count||!sides||sides>1000)return 'Invalid dice expression';let total=0;for(let i=0;i<count;i++)total+=1+Math.floor(Math.random()*sides);if(m[4])total+=m[3]==='-'?-Number(m[4]):Number(m[4]);return total}
-    function addCollection(key){const label=key==='ships'?'ship':'companion',name=prompt(`${label[0].toUpperCase()+label.slice(1)} name`);if(!name?.trim())return;const c=current();if(key==='ships')c.ships.push({name:name.trim(),type:prompt('Model or species')||'',role:prompt('Role')||'',notes:prompt('Notes')||''});else c.companions.push({name:name.trim(),species:prompt('Species or model')||'',role:prompt('Role')||'',notes:prompt('Notes')||''});renderView()}
+    function addCollection(key){if(key==='ships'){pendingShipOwner=state.selected;$('#shipForm').reset();$('#shipDialog').showModal();return}const name=prompt('Companion name');if(!name?.trim())return;current().companions.push({name:name.trim(),species:prompt('Species or model')||'',role:prompt('Role')||'',notes:prompt('Notes')||''});persist();renderView()}
     function setTab(id){activeTab=id;renderTabs();renderView()}
     function importHomebrew(e){const file=e.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=()=>{try{const data=JSON.parse(reader.result),entries=Array.isArray(data)?data:data.entries;if(!Array.isArray(entries))throw Error();const fields=['damage','attackBonus','ability','crit','proficiencyGroup','effect','effectText','effectDescription','benefit','skill','proficiency','bonus','prerequisites','prerequisite','choices','choiceRequired','book','class','classes','tree','skillTree','category','weaponType','cost','weight','availability','armorBonus','equipmentBonus','maxDexBonus','source'];state.homebrew.push(...entries.filter(x=>x&&x.name&&x.type).map(x=>({...Object.fromEntries(fields.filter(key=>x[key]!==undefined).map(key=>[key,x[key]])),type:String(x.type),name:String(x.name),description:String(x.description||'')})));persist();renderView();toast('Homebrew imported')}catch(err){toast('Could not read homebrew JSON')}e.target.value=''};reader.readAsText(file)}
     $('#tabs').addEventListener('click',e=>{const b=e.target.closest('[data-tab]');if(b)setTab(b.dataset.tab)});$('#characterList').addEventListener('click',e=>{const b=e.target.closest('[data-character]');if(b){state.selected=Number(b.dataset.character);persist();render()}});$('#saveCharacter').onclick=save;$('#exportCharacter').onclick=()=>download(`${current().name.toLowerCase().replace(/[^a-z0-9]+/g,'-')||'character'}.json`,{format:'saga-ledger-character',version:1,character:current()});$('#newCharacterButton').onclick=()=>$('#characterDialog').showModal();$('#switchProfile').onclick=()=>$('#profileDialog').showModal();$('#profileForm').onsubmit=e=>{e.preventDefault();state.profile=$('#profileInput').value.trim();persist();$('#profileDialog').close();render()};$('#characterForm').onsubmit=e=>{e.preventDefault();const name=$('#newName').value.trim();state.characters.push({...structuredClone(starter),name,species:$('#newSpecies').value,class:$('#newClass').value,level:1,hp:maxHp({...starter,class:$('#newClass').value,level:1}),maxHp:maxHp({...starter,class:$('#newClass').value,level:1}),xp:0,abilities:{STR:10,DEX:10,CON:10,INT:10,WIS:10,CHA:10},skills:[],feats:[],talents:[],inventory:[],weapons:[],ships:[],companions:[]});state.selected=state.characters.length-1;activeTab='details';persist();$('#characterDialog').close();e.target.reset();render()};document.querySelectorAll('[data-close]').forEach(b=>b.onclick=()=>document.getElementById(b.dataset.close).close());$('#homebrewForm').onsubmit=e=>{e.preventDefault();state.homebrew.push({type:$('#brewType').value,name:$('#brewName').value.trim(),description:$('#brewDescription').value.trim()});persist();$('#homebrewDialog').close();e.target.reset();renderView();toast('Homebrew added')};$('#importFile').onchange=e=>{const file=e.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=()=>{try{const data=JSON.parse(reader.result),character=data.character||data;if(!character.name||!character.abilities)throw Error();state.characters.push(normalizeCharacter(character));state.selected=state.characters.length-1;persist();render();toast('Character imported')}catch(err){toast('Could not read character JSON')}e.target.value=''};reader.readAsText(file)};
@@ -253,9 +565,9 @@
     const renderLevelUpWithClassRules=renderLevelUpDialog;renderLevelUpDialog=function(){renderLevelUpWithClassRules();if(current().class==='Technician'||current().class==='Force Prodigy')$('#levelUpDescription').textContent=`${current().class} progression: gain a talent at odd levels and a bonus feat at even levels. Ability scores increase by +1 at levels 4, 8, 12, 16, and 20.`}
     function renderBuilder(){const form=$('#builderForm'),steps=['Identity','Ability scores','Skills','Background','Review'];$('#builderTitle').textContent=builderStep===4?'Review your character':`Build your character · ${steps[builderStep]}`;const nav=`<div class="dialog-actions">${builderStep?'<button class="button" type="button" data-builder-back>Back</button>':''}<span class="builder-progress">STEP ${builderStep+1} OF ${steps.length}</span>${builderStep<4?'<button class="button primary" type="button" data-builder-next>Next</button>':'<button class="button primary" type="submit">Create character</button>'}</div>`;if(builderStep===0)form.innerHTML=`<div class="builder-step"><p class="muted">Start with the character’s identity. You can edit these details later.</p><div class="field"><label for="builderName">Character name</label><input id="builderName" name="name" maxlength="60" required value="${esc(builderDraft.name)}"></div><div class="form-grid"><div class="field"><label for="builderSpecies">Species</label><select id="builderSpecies" name="species">${['Human','Bothan','Duros','Mon Calamari','Rodian','Togruta',"Twi'lek",'Wookiee','Zabrak'].map(name=>`<option ${builderDraft.species===name?'selected':''}>${esc(name)}</option>`).join('')}</select></div><div class="field"><label for="builderClass">Starting class</label><select id="builderClass" name="class">${Object.keys(classes).map(name=>`<option ${builderDraft.class===name?'selected':''}>${name}</option>`).join('')}</select></div></div>${nav}</div>`;else if(builderStep===1)form.innerHTML=`<div class="builder-step"><p class="muted">Enter the ability scores your group agreed on. These values are not automatically adjusted by species.</p><div class="builder-abilities">${abilities.map(name=>`<div class="field"><label for="builder${name}">${name}</label><input id="builder${name}" name="${name}" type="number" min="3" max="18" required value="${Number(builderDraft.abilities[name]||10)}"></div>`).join('')}</div>${nav}</div>`;else if(builderStep===2){const limit=builderSkillLimit();form.innerHTML=`<div class="builder-step"><p class="muted">Select exactly ${limit} trained skill${limit===1?'':'s'} for a level 1 ${esc(builderDraft.class)} with INT ${Number(builderDraft.abilities.INT||10)}. You can edit training later.</p><div class="builder-skills">${skillCatalog.map(skill=>`<label class="builder-skill"><input type="checkbox" name="trainedSkills" value="${esc(skill.name)}" ${builderDraft.trainedSkills.includes(skill.name)?'checked':''}>${esc(skill.name)}</label>`).join('')}</div><div class="callout">Available training slots: ${limit}. Feats, talents, and equipment can be added after character creation.</div>${nav}</div>`}else if(builderStep===3)form.innerHTML=`<div class="builder-step"><p class="muted">Add a homeworld, language, and background now, or leave these optional details blank.</p><div class="form-grid"><div class="field"><label for="builderHomeworld">Homeworld</label><input id="builderHomeworld" name="homeworld" value="${esc(builderDraft.homeworld)}"></div><div class="field"><label for="builderLanguages">Languages</label><input id="builderLanguages" name="languages" value="${esc(builderDraft.languages)}"></div><div class="field full"><label for="builderBackground">Background</label><textarea id="builderBackground" name="background">${esc(builderDraft.background)}</textarea></div><div class="field full"><label for="builderNotes">Notes</label><textarea id="builderNotes" name="notes">${esc(builderDraft.notes)}</textarea></div></div>${nav}</div>`;else{const trained=builderDraft.trainedSkills.map(name=>`<span class="tag">${esc(name)}</span>`).join(' ');form.innerHTML=`<div class="builder-step"><p>Review the level 1 character before adding them to your roster.</p><div class="list"><div class="list-row"><div><div class="row-title">${esc(builderDraft.name)}</div><div class="row-sub">${esc(builderDraft.species)} · ${esc(builderDraft.class)} · Level 1</div></div></div><div class="list-row"><div><div class="row-title">Ability scores</div><div class="row-sub">${abilities.map(name=>`${name} ${Number(builderDraft.abilities[name])}`).join(' · ')}</div></div></div><div class="list-row"><div><div class="row-title">Trained skills</div><div class="row-sub">${trained||'None selected'}</div></div></div><div class="list-row"><div><div class="row-title">Background</div><div class="row-sub">${esc(builderDraft.background||'Not entered')}</div></div></div></div>${nav}</div>`}form.onchange=()=>syncBuilderDraft(form);form.onsubmit=event=>{event.preventDefault();syncBuilderDraft(form);createGuidedCharacter()}}
     function syncBuilderDraft(form){const value=name=>form.querySelector(`[name="${name}"]`).value;if(builderStep===0){builderDraft.name=value('name').trim();builderDraft.species=value('species');builderDraft.class=value('class')}else if(builderStep===1){for(const ability of abilities)builderDraft.abilities[ability]=Number(value(ability))}else if(builderStep===2)builderDraft.trainedSkills=[...form.querySelectorAll('[name="trainedSkills"]:checked')].map(input=>input.value);else if(builderStep===3){for(const field of ['homeworld','languages','background','notes'])builderDraft[field]=value(field).trim()}}
-    function startGuidedBuilder(){builderDraft={name:'',species:'Human',class:'Scoundrel',abilities:Object.fromEntries(abilities.map(name=>[name,10])),trainedSkills:[],homeworld:'',languages:'Basic',background:'',notes:''};builderStep=0;renderBuilder();$('#newCharacterDialog').close();$('#builderDialog').showModal()}
-    function createGuidedCharacter(){const character={...structuredClone(starter),name:builderDraft.name,species:builderDraft.species,class:builderDraft.class,level:1,abilities:{...builderDraft.abilities},hp:0,maxHp:0,xp:0,background:builderDraft.background,homeworld:builderDraft.homeworld,languages:builderDraft.languages,notes:builderDraft.notes,skills:skillCatalog.map(skill=>({...skill,trained:builderDraft.trainedSkills.includes(skill.name),focus:false,miscBonus:0})),feats:[],talents:[],inventory:[],weapons:[],ships:[],companions:[]};character.maxHp=maxHp(character);character.hp=character.maxHp;state.characters.push(normalizeCharacter(character));state.selected=state.characters.length-1;activeTab='details';persist();builderDraft=null;$('#builderDialog').close();render();toast('Character created')}
-    $('#newCharacterButton').onclick=()=>$('#newCharacterDialog').showModal();$('#quickCreateButton').onclick=()=>{$('#newCharacterDialog').close();$('#characterDialog').showModal()};$('#guidedCreateButton').onclick=startGuidedBuilder;$('#builderForm').addEventListener('click',event=>{if(event.target.closest('[data-builder-back]')){syncBuilderDraft($('#builderForm'));builderStep--;renderBuilder()}else if(event.target.closest('[data-builder-next]')){syncBuilderDraft($('#builderForm'));if(builderStep===0&&!builderDraft.name)return toast('Enter a character name');if(builderStep===1&&abilities.some(name=>builderDraft.abilities[name]<3||builderDraft.abilities[name]>18))return toast('Ability scores must be between 3 and 18');if(builderStep===2&&builderDraft.trainedSkills.length!==builderSkillLimit())return toast(`Select exactly ${builderSkillLimit()} trained skills`);builderStep++;renderBuilder()}});$('#builderDialog').addEventListener('cancel',()=>{builderDraft=null});document.addEventListener('click',event=>{if(event.target.closest('[data-close-builder]')){builderDraft=null;$('#builderDialog').close()}},true);
+    function startGuidedBuilder(recordType='character'){builderDraft={recordType,name:'',species:'Human',class:'Scoundrel',abilities:Object.fromEntries(abilities.map(name=>[name,10])),trainedSkills:[],homeworld:'',languages:'Basic',background:'',notes:''};builderStep=0;renderBuilder();$('#newCharacterDialog').close();$('#builderDialog').showModal()}
+    function createGuidedCharacter(){const character={...structuredClone(starter),name:builderDraft.name,recordType:builderDraft.recordType||'character',species:builderDraft.species,class:builderDraft.class,level:1,abilities:{...builderDraft.abilities},hp:0,maxHp:0,xp:0,background:builderDraft.background,homeworld:builderDraft.homeworld,languages:builderDraft.languages,notes:builderDraft.notes,skills:skillCatalog.map(skill=>({...skill,trained:builderDraft.trainedSkills.includes(skill.name),focus:false,miscBonus:0})),feats:[],talents:[],inventory:[],weapons:[],ships:[],companions:[]};character.maxHp=maxHp(character);character.hp=character.maxHp;state.characters.push(normalizeCharacter(character));state.selected=state.characters.length-1;activeTab='details';persist();builderDraft=null;$('#builderDialog').close();render();toast('Character created')}
+    $('#newCharacterButton').onclick=()=>$('#newCharacterDialog').showModal();$('#quickCreateButton').onclick=()=>{$('#newCharacterDialog').close();$('#characterDialog').showModal()};$('#guidedCreateButton').onclick=()=>startGuidedBuilder('character');$('#builderForm').addEventListener('click',event=>{if(event.target.closest('[data-builder-back]')){syncBuilderDraft($('#builderForm'));builderStep--;renderBuilder()}else if(event.target.closest('[data-builder-next]')){syncBuilderDraft($('#builderForm'));if(builderStep===0&&!builderDraft.name)return toast('Enter a character name');if(builderStep===1&&abilities.some(name=>builderDraft.abilities[name]<3||builderDraft.abilities[name]>18))return toast('Ability scores must be between 3 and 18');if(builderStep===2&&builderDraft.trainedSkills.length!==builderSkillLimit())return toast(`Select exactly ${builderSkillLimit()} trained skills`);builderStep++;renderBuilder()}});$('#builderDialog').addEventListener('cancel',()=>{builderDraft=null});document.addEventListener('click',event=>{if(event.target.closest('[data-close-builder]')){builderDraft=null;$('#builderDialog').close()}},true);
     function renderDroidBuilder(){
       const form=$('#builderForm'),droid=builderDraft.species==='Droid',allowedClasses=droid?['Noble','Scoundrel','Scout','Soldier']:Object.keys(classes),scoreAbilities=droid?abilities.filter(name=>name!=='CON'):abilities;
       const steps=['Identity','Ability scores','Skills','Background','Review'],nav=`<div class="dialog-actions">${builderStep?'<button class="button" type="button" data-builder-back>Back</button>':''}<span class="builder-progress">STEP ${builderStep+1} OF ${steps.length}</span>${builderStep<4?'<button class="button primary" type="button" data-builder-next>Next</button>':'<button class="button primary" type="submit">Create character</button>'}</div>`;
@@ -281,7 +593,7 @@
     }
     function builderEffectiveAbilities(){return isDroidBuilder()?adjustedDroidAbilities(builderDraft.abilities,builderDraft.droid.degree,builderDraft.droid.size):builderDraft.abilities}
     renderBuilder=function(){return renderDroidBuilder()}
-    startGuidedBuilder=function(){builderDraft={name:'',species:'Human',class:'Scoundrel',abilities:Object.fromEntries(abilities.map(name=>[name,10])),abilityMethod:'manual',trainedSkills:[],homeworld:'',languages:'Basic',background:'',notes:'',droid:{degree:'2nd',size:'Medium',accessories:'',accessorySpend:0}};builderStep=0;renderBuilder();$('#newCharacterDialog').close();$('#builderDialog').showModal()}
+    startGuidedBuilder=function(recordType='character'){builderDraft={recordType,name:'',species:'Human',class:'Scoundrel',abilities:Object.fromEntries(abilities.map(name=>[name,10])),abilityMethod:'manual',trainedSkills:[],homeworld:'',languages:'Basic',background:'',notes:'',droid:{degree:'2nd',size:'Medium',accessories:'',accessorySpend:0}};builderStep=0;renderBuilder();$('#newCharacterDialog').close();$('#builderDialog').showModal()}
     $('#guidedCreateButton').onclick=startGuidedBuilder
     const createGuidedCharacterBeforeDroid=createGuidedCharacter;createGuidedCharacter=function(){if(!isDroidBuilder())return createGuidedCharacterBeforeDroid();const baseAbilities=Object.fromEntries(characterAbilities({species:'Droid'}).map(name=>[name,Number(builderDraft.abilities[name])])),droid={...builderDraft.droid,baseAbilities},character={...structuredClone(starter),name:builderDraft.name,species:'Droid',class:builderDraft.class,level:1,abilities:adjustedDroidAbilities(baseAbilities,droid.degree,droid.size),droid,hp:0,maxHp:0,xp:0,background:builderDraft.background,homeworld:builderDraft.homeworld,languages:builderDraft.languages||'Binary, Basic',notes:builderDraft.notes,skills:builderAvailableSkills().map(skill=>({...skill,trained:builderDraft.trainedSkills.includes(skill.name),focus:false,miscBonus:0})),feats:[],talents:[],inventory:[{name:'Heuristic Processor',qty:1,type:'Droid System'},{name:'Appendage',qty:2,type:'Droid System'},...(droid.accessories.trim()?[{name:droid.accessories.trim(),qty:1,type:'Droid System'}]:[])],weapons:[],ships:[],companions:[]};character.maxHp=maxHp(character);character.hp=character.maxHp;state.characters.push(normalizeCharacter(character));state.selected=state.characters.length-1;activeTab='details';persist();builderDraft=null;$('#builderDialog').close();render();toast('Droid character created')}
     $('#builderForm').addEventListener('change',event=>{if(event.target.name==='accessorySpend'&&Number(event.target.value)<0){toast('Droid accessory budget cannot be negative');event.target.value='0';if(isDroidBuilder())builderDraft.droid.accessorySpend=0}},true)
@@ -296,8 +608,9 @@
     const levelUpCandidatesBeforeDroid=levelUpCandidates;levelUpCandidates=function(type,level){const c=current(),candidates=levelUpCandidatesBeforeDroid(type,level);return isDroid(c)&&type==='feat'?candidates.filter(entry=>unmetFeatPrerequisites(c,entry).length===0):candidates}
     const overviewViewBeforeDroidTraits=overviewView;overviewView=function(){const host=document.createElement('div');host.innerHTML=overviewViewBeforeDroidTraits();if(isDroid(current()))host.querySelector('.ability-grid')?.insertAdjacentHTML('afterend','<div class="callout">Droid rules to adjudicate manually: ion vulnerability, repair-based healing, nonliving immunities, shutdown, maintenance, memory, and behavioral inhibitors. Small droids also have tracked speed 4, +1 Reflex, +5 Stealth, and three-quarter carrying capacity; Medium droids walk 6 squares.</div>');return host.innerHTML}
     const quickCharacterSpecies=$('#newSpecies');if(quickCharacterSpecies&&!Array.from(quickCharacterSpecies.options).some(option=>option.value==='Droid'))quickCharacterSpecies.add(new Option('Droid','Droid'))
-    $('#newSpecies').addEventListener('change',()=>{if($('#newSpecies').value==='Droid'&&$('#newClass').value==='Jedi')$('#newClass').value='Soldier';$('#newClass').querySelector('option[value="Jedi"]').disabled=$('#newSpecies').value==='Droid'})
-    $('#newClass').querySelector('option[value="Jedi"]').disabled=$('#newSpecies').value==='Droid'
+    const quickJediOption=Array.from($('#newClass').options).find(option=>option.value==='Jedi');
+    $('#newSpecies').addEventListener('change',()=>{if($('#newSpecies').value==='Droid'&&$('#newClass').value==='Jedi')$('#newClass').value='Soldier';quickJediOption.disabled=$('#newSpecies').value==='Droid'})
+    quickJediOption.disabled=$('#newSpecies').value==='Droid'
     const characterFormBeforeDroid=$('#characterForm').onsubmit;$('#characterForm').onsubmit=event=>{if($('#newSpecies').value!=='Droid')return characterFormBeforeDroid(event);event.preventDefault();const name=$('#newName').value.trim(),degree='2nd',size='Medium',base={STR:10,DEX:10,INT:10,WIS:10,CHA:10},droid={degree,size,accessories:'',accessorySpend:0,baseAbilities:{...base}},character={...structuredClone(starter),name,species:'Droid',class:$('#newClass').value==='Jedi'?'Soldier':$('#newClass').value,level:1,abilities:adjustedDroidAbilities(base,degree,size),droid,hp:0,maxHp:0,xp:0,languages:'Binary, Basic',skills:[],feats:[],talents:[],inventory:[{name:'Heuristic Processor',qty:1,type:'Droid System'},{name:'Appendage',qty:2,type:'Droid System'}],weapons:[],ships:[],companions:[]};character.maxHp=maxHp(character);character.hp=character.maxHp;state.characters.push(normalizeCharacter(character));state.selected=state.characters.length-1;activeTab='details';persist();$('#characterDialog').close();event.target.reset();render()}
     function hasStarshipTactics(c){return c.feats.some(feat=>String(feat.name||'').trim().toLowerCase()==='starship tactics')}
     function renderStarshipManeuvers(c){const selected=Array.isArray(c.starshipManeuvers)?c.starshipManeuvers:[],known=new Set(selected.map(item=>String(item.name||item).toLowerCase()));if(!hasStarshipTactics(c))return `<div class="panel" style="margin-top:14px"><div class="section-head" style="margin-top:0"><div><h2>Starship maneuvers</h2><p>Selection unlocks with the Starship Tactics feat.</p></div></div><div class="notice">Add Starship Tactics to this character’s feats to choose from the maneuver catalog.</div></div>`;const options=starshipManeuverCatalog.filter(item=>!known.has(item.name.toLowerCase()));return `<div class="panel" style="margin-top:14px"><div class="section-head" style="margin-top:0"><div><h2>Starship maneuvers</h2><p>${selected.length} selected · requires Starship Tactics</p></div></div><div class="inline-form"><div class="field"><label for="starshipManeuverChoice">Available maneuver</label><select id="starshipManeuverChoice">${options.length?options.map(item=>`<option value="${esc(item.name)}">${esc(item.name)} · ${esc(item.type)} · ${esc(item.action)}</option>`).join(''):'<option value="">All listed maneuvers selected</option>'}</select></div><button class="button primary" data-add-starship-maneuver ${options.length?'':'disabled'}>＋ Add maneuver</button></div><div class="list">${selected.map((item,index)=>{const entry=starshipManeuverCatalog.find(maneuver=>maneuver.name.toLowerCase()===String(item.name||item).toLowerCase())||item;return `<div class="list-row"><div><div class="row-title">${esc(entry.name||item)}</div><div class="row-sub">${esc(entry.type||'')} · ${esc(entry.action||'')}</div><div class="row-sub">${esc(entry.description||'')}</div></div><button class="remove" data-remove-starship-maneuver="${index}" aria-label="Remove ${esc(entry.name||item)}">×</button></div>`}).join('')||'<div class="empty">No starship maneuvers selected.</div>'}</div><div class="notice">Maneuver names, types, action requirements, and descriptions are recorded here; resolve their full game effects using your reference.</div></div>`}
@@ -331,8 +644,14 @@
       else if(state.selected>index)state.selected--;
       persist();render();toast(`${character.name} deleted`);
     });
+    $('#shipForm').addEventListener('submit',event=>{event.preventDefault();event.stopImmediatePropagation();const form=event.currentTarget,data=new FormData(form),ship={name:String(data.get('name')).trim(),model:String(data.get('model')||''),type:String(data.get('model')||''),size:String(data.get('size')||''),role:String(data.get('role')||''),initiative:Number(data.get('initiative'))||0,maneuver:Number(data.get('maneuver'))||0,speed:String(data.get('speed')||''),hp:Number(data.get('hp'))||0,damageReduction:Number(data.get('damageReduction'))||0,shieldRating:Number(data.get('shieldRating'))||0,reflexDefense:Number(data.get('reflexDefense'))||10,crew:String(data.get('crew')||''),weapons:String(data.get('weapons')||'').split('\n').map(line=>line.trim()).filter(Boolean),notes:String(data.get('notes')||''),folderId:''},owner=pendingShipOwner==null?null:state.characters[pendingShipOwner];if(owner){owner.ships.push(ship);state.selected=pendingShipOwner}else state.ships.push(ship);pendingShipOwner=null;persist();form.reset();$('#shipDialog').close();render();if($('#archiveDialog').open)renderArchiveManager();toast('Ship created')},true);
+    function archiveAction(entry,action){if(action==='open'&&entry.kind==='character'){state.selected=entry.index;activeTab='overview';persist();$('#archiveDialog').close();render();return}if(action==='duplicate'){duplicateArchiveEntry(entry);return}if(action==='export'){exportArchiveEntry(entry);return}if(action==='lock'){const item=archiveEntryTarget(entry);if(item){item.locked=!item.locked;persist();render();renderArchiveManager()}return}if(action==='delete'&&window.confirm(`Delete ${entry.type} "${entry.name}"? This cannot be undone.`))removeArchiveEntry(entry)}
+    function importArchiveData(data){const source=data.archive||data,hasArchive=Array.isArray(source.characters)||Array.isArray(source.npcs)||Array.isArray(source.ships);if(hasArchive){state.characters.push(...(source.characters||[]).filter(item=>item&&item.name).map(normalizeCharacter));state.npcs.push(...(source.npcs||[]).filter(item=>item&&item.name));state.ships.push(...(source.ships||[]).filter(item=>item&&item.name));state.folders=[...new Set([...state.folders,...(source.folders||[])])];state.homebrew.push(...(source.homebrew||[]))}else if(data.character?.name){state.characters.push(normalizeCharacter(data.character));state.selected=state.characters.length-1}else if(data.npc?.name)state.npcs.push(data.npc);else if(data.ship?.name)state.ships.push(data.ship);else throw new Error('Unsupported archive JSON');persist();render();renderArchiveManager();toast('Archive imported')}
+    $('#manageArchiveButton').addEventListener('click',openArchiveManager);$('#archiveSearch').addEventListener('input',renderArchiveManager);$('#archiveType').addEventListener('change',renderArchiveManager);$('#archiveFolder').addEventListener('change',renderArchiveManager);$('#archiveEntries').addEventListener('click',event=>{const button=event.target.closest('[data-archive-action]');if(!button)return;const entry=activeArchiveItems[Number(button.dataset.archiveIndex)];if(entry)archiveAction(entry,button.dataset.archiveAction)});$('#archiveEntries').addEventListener('change',event=>{const select=event.target.closest('[data-archive-folder]');if(select){const entry=activeArchiveItems[Number(select.dataset.archiveFolder)];if(entry)moveArchiveEntry(entry,select.value)}});$('#archiveDialog').addEventListener('click',event=>{if(event.target.closest('[data-close-archive]'))$('#archiveDialog').close()});$('#newArchiveFolder').onclick=()=>{const name=prompt('Folder name');if(!name?.trim())return;if(state.folders.some(folder=>folder.toLowerCase()===name.trim().toLowerCase()))return toast('That folder already exists');state.folders.push(name.trim());persist();renderArchiveManager()};$('#deleteArchiveFolder').onclick=deleteArchiveFolder;$('#newArchiveNpc').onclick=()=>$('#npcDialog').showModal();$('#newHeroicNpc').onclick=()=>startGuidedBuilder('heroicNPC');$('#newArchiveShip').onclick=()=>$('#shipDialog').showModal();$('#npcForm').onsubmit=event=>{event.preventDefault();const form=event.currentTarget,data=new FormData(form);state.npcs.push({name:String(data.get('name')).trim(),species:String(data.get('species')||'Unknown'),role:String(data.get('role')||''),level:Number(data.get('level'))||1,hp:Number(data.get('hp'))||0,location:String(data.get('location')||''),notes:String(data.get('notes')||''),folderId:''});persist();form.reset();$('#npcDialog').close();renderArchiveManager();toast('NPC created')};$('#shipForm').onsubmit=event=>{event.preventDefault();const form=event.currentTarget,data=new FormData(form);state.ships.push({name:String(data.get('name')).trim(),model:String(data.get('model')||''),type:String(data.get('model')||''),size:String(data.get('size')||''),role:String(data.get('role')||''),initiative:Number(data.get('initiative'))||0,maneuver:Number(data.get('maneuver'))||0,speed:String(data.get('speed')||''),hp:Number(data.get('hp'))||0,damageReduction:Number(data.get('damageReduction'))||0,shieldRating:Number(data.get('shieldRating'))||0,reflexDefense:Number(data.get('reflexDefense'))||10,crew:String(data.get('crew')||''),weapons:String(data.get('weapons')||'').split('\n').map(line=>line.trim()).filter(Boolean),notes:String(data.get('notes')||''),folderId:''});persist();form.reset();$('#shipDialog').close();renderArchiveManager();toast('Ship created')};$('#archiveCharacterImport').onchange=event=>{const file=event.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=()=>{try{importArchiveData(JSON.parse(reader.result))}catch(error){toast('Could not read archive JSON')}event.target.value=''};reader.readAsText(file)};$('#archiveImportFile').onchange=event=>{const file=event.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=()=>{try{importArchiveData(JSON.parse(reader.result))}catch(error){toast('Could not read archive JSON')}event.target.value=''};reader.readAsText(file)};$('#exportArchive').onclick=()=>download('saga-ledger-archive.json',{format:'saga-ledger-archive',version:1,characters:state.characters,npcs:state.npcs,ships:state.ships,folders:state.folders,homebrew:state.homebrew});
+    $('#newArchiveCharacter').addEventListener('click',()=>{$('#archiveDialog').close();$('#newCharacterDialog').showModal()});
     window.addEventListener('pagehide',()=>persist())
     render();
+    openArchiveManager();
     loadCatalogFiles();
     loadEquipmentCatalog();
   </script>
